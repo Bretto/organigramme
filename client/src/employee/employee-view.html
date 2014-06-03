@@ -17,11 +17,31 @@
                 <p>June 30, 1980</p>
             </div>
         </div>
-        <ul class="list">
-            <li class="item" data-ng-repeat="employeeTagMap in currentEmployee.tagMaps">
+
+        <div class="subheader-wrap">
+            <div class="bar bar-subheader bar-stable">
+                <button class="button button-icon icon ion-ios7-minus-outline"
+                        ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+                <h2 class="title">Sub Header</h2>
+
+            </div>
+        </div>
+
+        <!--<div class="list-header">-->
+        <!--<div class="title">Tag List</div>-->
+        <!--<div class="buttons right-buttons">-->
+        <!--<button class="button button-icon icon ion-ios7-minus-outline"-->
+        <!--ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>-->
+        <!--</div>-->
+        <!--</div>-->
+        <ion-list show-delete="data.showDelete">
+            <ion-item class="item" data-ng-repeat="employeeTagMap in currentEmployee.tagMaps">
                 {{employeeTagMap.tag.name}}
-            </li>
-        </ul>
+                <ion-delete-button class="ion-minus-circled"
+                                   ng-click="onTagDelete(employeeTagMap)">
+                </ion-delete-button>
+            </ion-item>
+        </ion-list>
 
 
     </ion-content>

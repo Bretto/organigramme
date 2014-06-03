@@ -45,13 +45,23 @@
             var currentEmployeeId = $state.params.employeeId;
             $scope.currentEmployee = DataContext.getEmployeeById(currentEmployeeId)[0];
 
-            $scope.onEdit = function(){
-                var state = 'dtsi.employeeEdit';
-                var params = {employeeId: currentEmployeeId};
-                var options = {};
-
-                $state.go(state, params, options);
+            $scope.data = {
+                showDelete: false
             };
+
+            $scope.onEdit = function(){
+
+                $scope.data.showDelete = !$scope.data.showDelete;
+//                var state = 'dtsi.employeeEdit';
+//                var params = {employeeId: currentEmployeeId};
+//                var options = {};
+//
+//                $state.go(state, params, options);
+            };
+
+            $scope.onTagDelete = function(employeeTagMap){
+
+            }
 
             $scope.onBack = function(){
                 var state = 'dtsi.employee';

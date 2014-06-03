@@ -1,0 +1,36 @@
+{
+    "data": [
+        {
+            "name": "Directeur",
+            "id": "1"
+        },
+        {
+            "name": "Mission",
+            "id": "2"
+        },
+        {
+            "name": "Service des Etudes",
+            "id": "3"
+        },
+        {
+            "name": "Service des Infrastructures",
+            "id": "4"
+        },
+        {
+            "name": "Service Administratif et Financier",
+            "id": "5"
+        },
+        {
+            "name": "Directeur Adjoint",
+            "id": "6"
+        },
+        {
+            "name": "Service de l'Editique",
+            "id": "7"
+        },
+        {
+            "name": "Service de la Geomatique et de la Teledetection",
+            "id": "8"
+        }
+    ]
+}

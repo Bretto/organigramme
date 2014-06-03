@@ -1,0 +1,28 @@
+<ion-view title="Employee View" ng-controller="EmployeeViewCtrl">
+    <ion-nav-bar class="bar-positive"></ion-nav-bar>
+    <ion-nav-buttons side="left">
+        <button ng-click="onBack()" class="button-icon ion-arrow-left-c button button-clear"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button ng-click="onEdit()" class="button button-clear">Edit</button>
+    </ion-nav-buttons>
+    <ion-content padding="false">
+
+        <div class="list card">
+            <div class="item item-avatar">
+                <img src="./assets/img/photo.jpg">
+
+                <h2>{{currentEmployee.name}}</h2>
+
+                <p>June 30, 1980</p>
+            </div>
+        </div>
+        <ul class="list">
+            <li class="item" data-ng-repeat="employeeTagMap in currentEmployee.tagMaps">
+                {{employeeTagMap.tag.name}}
+            </li>
+        </ul>
+
+
+    </ion-content>
+</ion-view>

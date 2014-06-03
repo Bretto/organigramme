@@ -1,0 +1,34 @@
+<html ng-app="AppModule">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <title>Side Menus</title>
+
+    <link href="./stylesheets/ionic.css" rel="stylesheet">
+    <link href="./stylesheets/screen.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div ng-controller="AppCtrl">
+    <ion-nav-view></ion-nav-view>
+    <div class="loader-wrap" ng-show="isLoading">
+        <div class="loader">Loading...</div>
+    </div>
+</div>
+
+<script src="./src/libs/jquery.min.js"></script>
+<script src="./src/libs/ionic.bundle.js"></script>
+<script src="./src/libs/q.min.js"></script>
+<script src="./src/libs/breeze.debug.js"></script>
+<script src="./src/app/DataContext.js"></script>
+<script src="./src/app/EntityModel.js"></script>
+<script src="./src/tag/TagModule.js"></script>
+<script src="./src/employee/EmployeeModule.js"></script>
+<script src="./src/menu/MenuModule.js"></script>
+<script src="./src/app/AppModule.js"></script>
+
+</body>
+</html>

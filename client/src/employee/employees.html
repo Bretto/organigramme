@@ -1,0 +1,14 @@
+<ion-view title="Employees" ng-controller="EmployeesCtrl">
+    <ion-nav-bar class="bar-positive"></ion-nav-bar>
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()">
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content padding="false">
+        <ul class="employee-tile-wrap">
+            <li ng-click="onSelect(employee)" class="employee-tile" ng-repeat="employee in employees"><span>{{employee.id}}</span></li>
+        </ul>
+    </ion-content>
+</ion-view>

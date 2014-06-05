@@ -7,6 +7,10 @@
         <button ng-click="onSave()" class="button button-clear">Save</button>
     </ion-nav-buttons>
     <ion-content padding="true">
-        <h1>Employee New</h1>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="Name" ng-model="tempEmployee.name">
+            </label>
+        </div>
     </ion-content>
 </ion-view>

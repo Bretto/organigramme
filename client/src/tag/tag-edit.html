@@ -1,5 +1,12 @@
-<ion-view title="Tags" ng-controller="TagsCtrl">
+<ion-view title="Tag Edit" ng-controller="TagEditCtrl">
+    <ion-nav-bar class="bar-positive"> </ion-nav-bar>
+    <ion-nav-buttons side="left">
+        <button ng-click="onBack()" class="button-icon ion-arrow-left-c button button-clear"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button ng-click="onSave()" class="button button-clear">Save</button>
+    </ion-nav-buttons>
     <ion-content padding="true">
-        <h1>Tag New</h1>
+        <h1>Tag Edit</h1>
     </ion-content>
 </ion-view>

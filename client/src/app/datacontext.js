@@ -50,12 +50,12 @@
         });
 
         var manager = new ngBreeze.EntityManager({dataService: ds});
-        var EntityQuery = breeze.EntityQuery;
+        var EntityQuery = ngBreeze.EntityQuery;
 
         EntityModel.initialize(manager.metadataStore);
 
-        function newEmployee() {
-            var newEntity = manager.createEntity('Employee', {name: 'name'});
+        function newEmployee(newEmployee) {
+            var newEntity = manager.createEntity('Employee', {name: newEmployee.name});
             manager.addEntity(newEntity);
             newEntity.entityAspect.acceptChanges();
 
@@ -119,8 +119,13 @@
 
         }
 
-        function getEmployeeById(employeeId){
-            var query = EntityQuery.from('Employee').where('id', '==', employeeId);
+        function getAllEntities(entityType){
+            var query = EntityQuery.from(entityType);
+            return manager.executeQueryLocally(query);
+        }
+
+        function getEntityById(entityType, id){
+            var query = EntityQuery.from(entityType).where('id', '==', id);
             return manager.executeQueryLocally(query);
         }
 
@@ -140,21 +145,30 @@
 
         }
 
-        function newTag() {
-            var newEntity = manager.createEntity('Tag', {name: 'name'});
-            manager.addEntity(newEntity);
-            newEntity.entityAspect.acceptChanges();
+        function newEntity(entityType, data){
+            var entity = manager.createEntity(entityType, data);
+            manager.addEntity(entity);
+            entity.entityAspect.acceptChanges();
 
-            return newEntity;
+            return entity;
         }
 
-        function newEmployeeTagMap(employeeId, tagId) {
-            var newEntity = manager.createEntity('EmployeeTagMap', { employee_id: employeeId, tag_id: tagId});
-            manager.addEntity(newEntity);
-            newEntity.entityAspect.acceptChanges();
 
-            return newEntity;
-        }
+//        function newTag(tag) {
+//            var newEntity = manager.createEntity('Tag', {name: tag.name});
+//            manager.addEntity(newEntity);
+//            newEntity.entityAspect.acceptChanges();
+//
+//            return newEntity;
+//        }
+//
+//        function newEmployeeTagMap(employeeId, tagId) {
+//            var newEntity = manager.createEntity('EmployeeTagMap', { employee_id: employeeId, tag_id: tagId});
+//            manager.addEntity(newEntity);
+//            newEntity.entityAspect.acceptChanges();
+//
+//            return newEntity;
+//        }
 
         function initialize(){
             return getAllEmployeeTagMap()
@@ -164,13 +178,13 @@
                 })
                 .then(function(res){
                     console.log(res.results[0].data);
-                    $rootScope.tags = res.results[0].data;
+//                    $rootScope.tags = res.results[0].data;
                     return getAllEmployee();
                 })
                 .then(function(res){
                     console.log(res.results[0].data);
-                    $rootScope.employees = res.results[0].data;
-                    $rootScope.isLoading = false;
+//                    $rootScope.employees = res.results[0].data;
+//                    $rootScope.isLoading = false;
                 });
 
         }
@@ -179,14 +193,16 @@
         return {
             initialize: initialize,
             getAllEmployee: getAllEmployee,
-            getEmployeeById: getEmployeeById,
-            newEmployee: newEmployee,
+            getEntityById: getEntityById,
+            getAllEntities: getAllEntities,
+//            newEmployee: newEmployee,
             deleteEmployee: deleteEmployee,
             getAllTag: getAllTag,
-            newTag: newTag,
+//            newTag: newTag,
             deleteTag: deleteTag,
             getAllEmployeeTagMap: getAllEmployeeTagMap,
-            newEmployeeTagMap: newEmployeeTagMap,
+//            newEmployeeTagMap: newEmployeeTagMap,
+            newEntity: newEntity,
             manager: manager
         };
 

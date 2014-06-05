@@ -7,6 +7,13 @@
         <button ng-click="onSave()" class="button button-clear">Save</button>
     </ion-nav-buttons>
     <ion-content padding="true">
-        <h1>Employee Edit</h1>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="Name" ng-model="editEmployee.name">
+            </label>
+        </div>
+        <div class="padding">
+            <button ng-click="onDelete()" class="button button-block button-assertive">Delete</button>
+        </div>
     </ion-content>
 </ion-view>

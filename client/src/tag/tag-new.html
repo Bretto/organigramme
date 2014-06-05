@@ -1,5 +1,31 @@
 <ion-view title="Tag New" ng-controller="TagNewCtrl">
-    <ion-content padding="true">
-        <h1>Tag New</h1>
+    <ion-nav-bar class="bar-positive"> </ion-nav-bar>
+    <ion-nav-buttons side="left">
+        <button ng-click="onBack()" class="button-icon ion-arrow-left-c button button-clear"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button ng-class="{'btn-disabled': isDisabled(tempTag.name)}" ng-click="onSave()" class="button button-clear">Save</button>
+    </ion-nav-buttons>
+    <ion-content padding="false">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="Name" ng-model="tempTag.name">
+            </label>
+        </div>
+
+        <div class="subheader-wrap">
+            <div class="bar bar-subheader bar-stable item-input-inset">
+                <h2 class="title">Tags</h2>
+            </div>
+        </div>
+        <ion-list show-delete="showDelete">
+            <ion-item class="item" ng-click="onTagSelect(tag)"
+                      data-ng-repeat="tag in tags
+                | filter:tempTag
+                | orderBy:'name'">
+                {{tag.name}}
+            </ion-item>
+        </ion-list>
+
     </ion-content>
 </ion-view>

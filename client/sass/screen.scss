@@ -48,6 +48,22 @@ $tile-s: 106.5px;
 }
 
 
+.item-disabled{
+  background: #f8f8f8;
+  color: #ccc;
+  pointer-events: none;
+}
+
+.btn-disabled{
+  pointer-events: none;
+  opacity: .3;
+}
+
+.tag-wrap{
+  width: 100%;
+}
+
+
 .loader-wrap{
 
   display: flex;

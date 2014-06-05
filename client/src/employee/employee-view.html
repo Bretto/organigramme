@@ -21,24 +21,17 @@
         <div class="subheader-wrap">
             <div class="bar bar-subheader bar-stable">
                 <button class="button button-icon icon ion-ios7-minus-outline"
-                        ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
-                <h2 class="title">Sub Header</h2>
-
+                        ng-click="showDelete = !showDelete"></button>
+                <h2 class="title">Tags</h2>
+                <button class="button button-icon icon ion-ios7-plus-outline"
+                        ng-click="onTagAdd()"></button>
             </div>
         </div>
-
-        <!--<div class="list-header">-->
-        <!--<div class="title">Tag List</div>-->
-        <!--<div class="buttons right-buttons">-->
-        <!--<button class="button button-icon icon ion-ios7-minus-outline"-->
-        <!--ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <ion-list show-delete="data.showDelete">
+        <ion-list show-delete="showDelete">
             <ion-item class="item" data-ng-repeat="employeeTagMap in currentEmployee.tagMaps">
                 {{employeeTagMap.tag.name}}
                 <ion-delete-button class="ion-minus-circled"
-                                   ng-click="onTagDelete(employeeTagMap)">
+                                   ng-click="onTagRemove(employeeTagMap)">
                 </ion-delete-button>
             </ion-item>
         </ion-list>

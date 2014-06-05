@@ -1,4 +1,4 @@
-<ion-view title="Employees" ng-controller="EmployeesCtrl">
+<ion-view title="Employees" ng-controller="EmployeesCtrl as employeesCtrl">
     <ion-nav-bar class="bar-positive"></ion-nav-bar>
 
     <ion-nav-buttons side="left">
@@ -6,9 +6,22 @@
         </button>
     </ion-nav-buttons>
 
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios7-plus-outline"
+                ng-click="onEmployeeAdd()"></button>
+    </ion-nav-buttons>
+
     <ion-content padding="false">
+    <!--<div class="content has-header">-->
+        <div class="subheader-wrap">
+            <!--<i class="icon ion-ios7-search placeholder-icon"></i>-->
+            <!--<input type="search" placeholder="Search" ng-model="search.name">-->
+            <input class="tag-wrap" type="hidden" setect2-tags="{data:tags, result:search}">
+        </div>
         <ul class="employee-tile-wrap">
-            <li ng-click="onSelect(employee)" class="employee-tile" ng-repeat="employee in employees"><span>{{employee.id}}</span></li>
+            <li ng-click="onSelect(employee)" class="employee-tile" ng-repeat="employee in employees"><span>{{employee.id}}</span>
+            </li>
         </ul>
+    <!--</div>-->
     </ion-content>
 </ion-view>

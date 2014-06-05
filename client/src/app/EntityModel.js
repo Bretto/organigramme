@@ -32,13 +32,14 @@
                 }
             });
 
-            metadataStore.setEntityTypeForResourceName('Employee', 'Employee');
-            function Employee() {
-            };
 
-            var employeeInitializer = function (employee) {
+            function Employee() {
             }
 
+            var employeeInitializer = function (employee) {
+            };
+
+            metadataStore.setEntityTypeForResourceName('Employee', 'Employee');
             metadataStore.registerEntityTypeCtor("Employee", Employee, employeeInitializer);
 
 
@@ -77,6 +78,7 @@
 
             }
 
+            metadataStore.setEntityTypeForResourceName('EmployeeTagMap', 'EmployeeTagMap');
             metadataStore.registerEntityTypeCtor("EmployeeTagMap", EmployeeTagMap, employeeTagMapInitializer);
 
 
@@ -109,6 +111,7 @@
             var tagInitializer = function (tag) {
             }
 
+            metadataStore.setEntityTypeForResourceName('Tag', 'Tag');
             metadataStore.registerEntityTypeCtor("Tag", Tag, tagInitializer);
 
 

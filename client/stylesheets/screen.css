@@ -39,6 +39,24 @@
 }
 
 /* line 51, ../sass/screen.scss */
+.item-disabled {
+  background: #f8f8f8;
+  color: #ccc;
+  pointer-events: none;
+}
+
+/* line 57, ../sass/screen.scss */
+.btn-disabled {
+  pointer-events: none;
+  opacity: .3;
+}
+
+/* line 62, ../sass/screen.scss */
+.tag-wrap {
+  width: 100%;
+}
+
+/* line 67, ../sass/screen.scss */
 .loader-wrap {
   display: flex;
   height: 100%;
@@ -50,7 +68,7 @@
   position: absolute;
 }
 
-/* line 64, ../sass/screen.scss */
+/* line 80, ../sass/screen.scss */
 .loader {
   margin: 6em auto;
   font-size: 10px;
@@ -64,7 +82,7 @@
   animation: load8 1.1s infinite linear;
 }
 
-/* line 77, ../sass/screen.scss */
+/* line 93, ../sass/screen.scss */
 .loader,
 .loader:after {
   border-radius: 50%;
@@ -73,13 +91,13 @@
 }
 
 @-webkit-keyframes load8 {
-  /* line 83, ../sass/screen.scss */
+  /* line 99, ../sass/screen.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
-  /* line 87, ../sass/screen.scss */
+  /* line 103, ../sass/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -87,13 +105,13 @@
 }
 
 @keyframes load8 {
-  /* line 93, ../sass/screen.scss */
+  /* line 109, ../sass/screen.scss */
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
 
-  /* line 97, ../sass/screen.scss */
+  /* line 113, ../sass/screen.scss */
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);

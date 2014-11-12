@@ -1,0 +1,40 @@
+<div layout="vertical" class="view employee" ng-controller="EmployeeNewCtrl as employeeNew">
+
+    <div class="center-img new-bg">
+        <img class="profile-pic" axi-load-picture="{{employeeNew.tempEmployee.picture}}">
+    </div>
+
+    <header layout="horizontal" layout-align="space-between end">
+        <button ng-click="employeeNew._onGoto('api.employee', {isBack:true})" class=""><i class="fa fa-arrow-left"></i></button>
+
+        <h1 class="title">New</h1>
+
+        <button ng-click="employeeNew.onSave('api.employee')"
+                ng-class="{'btn-disabled': employeeNew.isSaveDisabled(employeeNew.tempEmployee)}">
+            <i class="fa fa-floppy-o"></i></button>
+    </header>
+
+    <section layout="vertical">
+
+        <form name="entityForm" novalidate layout="vertical">
+
+            <input class="input" type="text" name="name" ng-model="employeeNew.tempEmployee.name"
+                   name="name" required placeholder="First Name + Last Name"/>
+
+            <div ng-if="entityForm.name.$touched" ng-messages="entityForm.name.$error"
+                 class="errors">
+                <div ng-message="required">You did not enter a name</div>
+            </div>
+
+            <button ng-click="employeeNew.takePicture()" class="">
+                <i class="fa fa-camera"></i>
+            </button>
+
+            <input class="hidden" type="file" capture="camera" accept="image/*"
+                   camera-btn="employeeNew.tempEmployee"
+                   id="cameraInput" name="cameraInput">
+        </form>
+
+    </section>
+
+</div>

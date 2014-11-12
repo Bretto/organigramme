@@ -1,0 +1,42 @@
+<div class="VBox H100 view tag" ng-controller="TagEditCtrl as tagEdit">
+
+    <header layout="horizontal" layout-align="space-between end">
+        <button ng-click="tagEdit.onBack('api.tag')" class=""><i class="fa fa-arrow-left"></i></button>
+        <h1 class="title">Edit</h1>
+        <button ng-click="tagEdit._onSave('api.tag')"
+                ng-class="{'btn-disabled': tagEdit.isSaveDisabled(tagEdit.currentTag)}">
+            <i class="fa fa-floppy-o"></i></button>
+    </header>
+
+    <section layout="vertical">
+        <form name="entityForm" novalidate layout="vertical">
+
+            <input type="text" name="name" ng-model="tagEdit.currentTag.name"
+                   name="name" required placeholder="Tag name"/>
+
+            <div ng-hide="entityForm.name.$valid" ng-messages="entityForm.name.$error"
+                 class="errors">
+                <div ng-message="required">You did not enter a tag name</div>
+            </div>
+
+            <button ng-click="deleteConfIsOpened = !deleteConfIsOpened">
+                Delete
+            </button>
+        </form>
+
+    </section>
+
+    <section class="confirm-wrap" layout="vertical" flex ng-class="{'is-opened': deleteConfIsOpened}">
+        <div class="confirm-popup">
+            <button ng-click="tagEdit.onDelete('api.tag')">
+                Delete
+            </button>
+            <button ng-click="deleteConfIsOpened = !deleteConfIsOpened">
+                Cancel
+            </button>
+        </div>
+    </section>
+
+</div>
+
+

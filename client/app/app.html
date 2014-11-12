@@ -1,0 +1,57 @@
+<div layout="vertical" class="app"
+     ng-swipe-left="app.onSwipe('left')"
+     ng-swipe-right="app.onSwipe('right')">
+
+    <section layout="vertical" class="tag-menu">
+
+        <header layout="horizontal" layout-align="space-between center">
+            <input class="search-input" type="text" placeholder="Search" ng-model="app.search.name">
+        </header>
+
+        <section layout="vertical" flex>
+
+            <ul class="list no-flex search-tags">
+                <li class="item" ng-click="app.onTagDelete($index)"
+                    data-ng-repeat="tag in app.tagSearch
+                | orderBy:'name'">
+                    <i class="fa fa-minus-circle"></i>
+                    <a>{{tag.name}}</a>
+                </li>
+            </ul>
+
+            <ul class="list">
+                <li class="item"
+                    ng-click="app.onTagSelect(tag)"
+                    ng-class="{'item-disabled': tag.isDisabled}"
+                    ng-repeat="tag in app.getTags()
+                | filter:app.search
+                | orderBy:'name'">
+                    <a>{{tag.name}}</a>
+                </li>
+            </ul>
+        </section>
+
+
+    </section>
+
+
+    <section layout="vertical" flex class="view employee-grid" ng-class="{'is-opened': app.isOpened}">
+
+        <section layout="vertical" flex>
+            <ul class="employee-tile-wrap" layout="horizontal">
+                <li ng-click="app._onGoto('api.employeeId', {employeeId: employee.id})"
+                    ng-class="{active: app._isEmpActive(employee)}"
+                    class="employee-tile" ax-bg-color="employee"
+                    ng-repeat="employee in app.getEmployees(app.searchIds) | limitTo: 100">
+                    <div class="center-img">
+                        <img class="profile-pic" axi-load-picture="{{employee.picture}}">
+                    </div>
+                    <!--<axi-loader></axi-loader>-->
+                </li>
+            </ul>
+        </section>
+    </section>
+
+    <div ui-view="mainContent" class="{{direction}}"></div>
+
+</div>

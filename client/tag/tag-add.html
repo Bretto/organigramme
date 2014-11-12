@@ -1,0 +1,26 @@
+<div layout="vertical" class="view" ng-controller="TagAddCtrl as tagAdd">
+
+    <header layout="horizontal" layout-align="space-between center">
+        <button ng-click="tagAdd._onGoto('api.employeeId',{employeeId: tagAdd.currentEmployee.id})" class=""><i class="fa fa-arrow-left"></i></button>
+
+        <input type="text" placeholder="Search" ng-model="search.name" class="search-input">
+    </header>
+
+    <section layout="vertical">
+
+        <ul class="list">
+            <li class="item"
+                ng-class="{'item-disabled': tag.isDisabled}"
+                ng-click="tagAdd.onTagSelect(tag)"
+                ng-repeat="tag in tagAdd.getTags()
+                | filter:search
+                | orderBy:'name'">
+                <a>{{tag.name}}</a>
+            </li>
+        </ul>
+
+    </section>
+
+</div>
+
+

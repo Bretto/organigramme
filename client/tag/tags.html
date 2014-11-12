@@ -1,0 +1,26 @@
+<div layout="vertical" class="view tag" ng-controller="TagsCtrl as tags">
+
+    <header layout="horizontal" layout-align="space-between end">
+        <button ng-click="tags._onGoto('api.employee', {isBack:true})" class=""><i class="fa fa-arrow-left"></i></button>
+
+        <h1 class="title">Tags</h1>
+
+        <button ng-click="tags._onGoto('api.tagNew')" class=""><i class="fa fa-plus-circle"></i></button>
+    </header>
+
+    <section layout="vertical" flex>
+
+            <input type="text" placeholder="Search" ng-model="tags.search.name">
+
+            <ul class="list">
+                <li class="item" ng-click="tags._onGoto('api.tagEdit',{tagId: tag.id})"
+                    data-ng-repeat="tag in tags.getTags()
+                | filter:tags.search
+                | orderBy:'name'">
+                    <a>{{::tag.name}}</a>
+                </li>
+            </ul>
+    </section>
+
+</div>
+

@@ -1,0 +1,15 @@
+{
+    "name": "switch-btn",
+    "version": "0.0.1",
+    "homepage": "https://github.com/Bretto",
+    "authors": [
+        "Brett Coffin <separ8@gmail.com>"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "angular": "1.3.0-rc.1",
+        "angular-ui-router": "0.2.11",
+        "font-awesome": "4.2.0",
+        "normalize-css": "latest"
+    }
+}

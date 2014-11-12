@@ -1,0 +1,18 @@
+<div layout="vertical" ng-controller="EmployeesCtrl as employees">
+
+    <section layout="vertical" flex class="view employee fix"
+             ng-class="{'is-opened': app.isOpened}">
+        <header layout="horizontal" layout-align="space-between end">
+            <button class="" ng-click="employees._onGoto('api.tag')">
+                <i class="fa fa-tags"></i>
+            </button>
+            <!--ng-click="employees.onOpenSearch()"-->
+            <h1 class="title">V2</h1>
+
+            <button ng-click="employees._onGoto('api.employeeNew')">
+                <i class="fa fa-plus-circle"></i>
+            </button>
+        </header>
+    </section>
+
+</div>

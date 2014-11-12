@@ -1,35 +1,79 @@
-<html ng-app="AppModule">
+<html>
 <head>
     <meta charset="utf-8">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-title" content="Organigramme DTSI">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
     <title>Side Menus</title>
-    <link href='./stylesheets/select2.css' rel='stylesheet' />
-    <link href="./stylesheets/ionic.css" rel="stylesheet">
-    <link href="./stylesheets/screen.css" rel="stylesheet">
+    <link href="bower_components/normalize-css/normalize.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <link href="style.css" rel="stylesheet">
+    <!--<link href="style-prefixed/style.css" rel="stylesheet">-->
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="bower_components/lodash/dist/lodash.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular/angular-messages.js"></script>
+    <script src="bower_components/angular/angular-touch.min.js"></script>
+    <script src="bower_components/angular/angular-animate.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <!--<script src="lib/ngCordova/dist/ng-cordova.js"></script>-->
+    <!--<script src="cordova.js"></script>-->
+    <script src="lib/exif.js"></script>
+    <script src="lib/megapix-image.js"></script>
+
+    <script src="lib/q.min.js"></script>
+    <script src="lib/breeze-runtime-1.5.0/Scripts/breeze.debug.js"></script>
+
+    <script src="logger/LoggerModule.js"></script>
+
+    <script src="app/AppModule.js"></script>
+    <script src="app/AppCtrl.js"></script>
+    <script src="app/AppRoutes.js"></script>
+    <script src="app/AppStart.js"></script>
+    <script src="app/AppConfig.js"></script>
+    <script src="app/AppModelService.js"></script>
+
+    <script src="datacontext/DataContextBase.js"></script>
+    <script src="datacontext/DataContext.js"></script>
+    <script src="datacontext/JsonResultsAdapter.js"></script>
+    <script src="datacontext/EntityModel.js"></script>
+    <script src="datacontext/DataContextConfig.js"></script>
+
+    <script src="employee/EmployeeEditCtrl.js"></script>
+    <script src="employee/EmployeeNewCtrl.js"></script>
+    <script src="employee/EmployeesCtrl.js"></script>
+    <script src="employee/EmployeeViewCtrl.js"></script>
+
+    <script src="tag/TagAddCtrl.js"></script>
+    <script src="tag/TagEditCtrl.js"></script>
+    <script src="tag/TagNewCtrl.js"></script>
+    <script src="tag/TagsCtrl.js"></script>
+
+    <script src="shared/ViewBaseMixin.js"></script>
+    <script src="loader/LoaderDirective.js"></script>
+    <script src="shared/CameraBtn.js"></script>
+    <script src="employee/EmployeeBaseMixin.js"></script>
+    <script src="tag/TagBaseMixin.js"></script>
 
 </head>
 
-<body>
+<body ng-app="AppModule">
 
-<div ng-controller="AppCtrl">
-    <ion-nav-view></ion-nav-view>
-    <div class="loader-wrap" ng-show="isLoading">
-        <div class="loader">Loading...</div>
+<div ng-controller="AppCtrl as app">
+    <ui-view></ui-view>
+    <div class="splash-screen" ng-show="isLoading">
+        <axi-loader></axi-loader>
     </div>
 </div>
 
-<script src="./src/libs/jquery.min.js"></script>
-<script src="./src/libs/select2.min.js"></script>
-<script src="./src/libs/ionic.bundle.js"></script>
-<script src="./src/libs/q.min.js"></script>
-<script src="./src/libs/breeze.debug.js"></script>
-<script src="./src/app/DataContext.js"></script>
-<script src="./src/app/EntityModel.js"></script>
-<script src="./src/tag/TagModule.js"></script>
-<script src="./src/employee/EmployeeModule.js"></script>
-<script src="./src/menu/MenuModule.js"></script>
-<script src="./src/app/AppModule.js"></script>
 
 </body>
 </html>

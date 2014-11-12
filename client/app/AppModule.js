@@ -5,7 +5,6 @@
 // http://192.168.106.48/organigramme/
 
     var modules = [
-        'ngCordova',
         'LoggerModule',
         'ui.router',
         'ngMessages',

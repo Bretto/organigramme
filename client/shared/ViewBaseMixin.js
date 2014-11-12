@@ -5,7 +5,7 @@
         .service('ViewBaseMixin', ViewBaseMixin);
 
 
-    function ViewBaseMixin($cordovaCamera, $state, $window, AppModelService, $rootScope, $timeout) {
+    function ViewBaseMixin($state, AppModelService, $rootScope, $timeout) {
         console.log('ViewBaseMixin');
 
 

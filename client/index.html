@@ -40,6 +40,8 @@
     <script src="app/AppConfig.js"></script>
     <script src="app/AppModelService.js"></script>
 
+    <script src="loggin/LogginCtrl.js"></script>
+
     <script src="datacontext/DataContextBase.js"></script>
     <script src="datacontext/DataContext.js"></script>
     <script src="datacontext/JsonResultsAdapter.js"></script>
@@ -68,9 +70,10 @@
 
 <div ng-controller="AppCtrl as app">
     <ui-view></ui-view>
-    <div class="splash-screen" ng-show="isLoading">
-        <axi-loader></axi-loader>
-    </div>
+
+    <div ng-include="'loggin/loggin.html'"></div>
+
+
 </div>
 
 

@@ -1,33 +1,22 @@
-$size = 50px;
-$stroke = 10px;
-$color = #fff;
-
-
 .loader-wrap {
-
   pointer-events: none;
 }
-
 .loader {
-
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
-  border-top: $stroke solid rgba($color, 0.2);
-  border-right: $stroke solid rgba($color, 0.2);
-  border-bottom: $stroke solid rgba($color, 0.2);
-  border-left: $stroke solid $color;
+  border-top: 10px solid rgba(255,255,255,0.2);
+  border-right: 10px solid rgba(255,255,255,0.2);
+  border-bottom: 10px solid rgba(255,255,255,0.2);
+  border-left: 10px solid #fff;
   -webkit-animation: load8 1s infinite linear;
 }
-
 .loader,
 .loader:after {
-
   border-radius: 50%;
-  width: $size;
-  height: $size;
+  width: 50px;
+  height: 50px;
 }
-
 @-webkit-keyframes load8 {
   0% {
     -webkit-transform: rotate(0deg);

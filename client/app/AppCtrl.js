@@ -6,9 +6,6 @@
         .controller('AppCtrl', AppCtrl);
 
 
-
-
-
     function AppCtrl($scope, $rootScope, $state, $log, ViewBaseMixin) {
 
         $log = $log.getInstance("AppCtrl");

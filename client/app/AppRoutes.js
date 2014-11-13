@@ -10,6 +10,10 @@
 
         //puts on hold the route navigation until the data is loaded
         function appInit(AppStart){
+
+
+
+
             return AppStart.start();
         }
 

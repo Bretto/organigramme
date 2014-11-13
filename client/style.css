@@ -1496,12 +1496,6 @@
   font-size: 30px;
 }
 .loader-wrap {
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000000;
-  position: absolute;
   pointer-events: none;
 }
 .loader {
@@ -1529,6 +1523,46 @@
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+.flip-container {
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-transform-style: preserve-3d;
+}
+.flip-container.doFlip .flipper {
+  -webkit-transform: perspective(1200px) rotateY(180deg) translateZ(-1px);
+}
+.flip-container .flipper {
+  position: relative;
+  -webkit-transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) -webkit-transform;
+  -webkit-transform-style: preserve-3d;
+}
+.front {
+  z-index: 2;
+  background: #145fd7;
+}
+.back {
+  background: #0f4bae;
+  -webkit-transform: rotateY(180deg);
+}
+.front,
+.back {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.loggin {
+  width: 100%;
+  height: 100%;
+}
+.loggin section input,
+.loggin section button {
+  font-size: 20px;
+  margin: 9px 20px;
+  padding: 4px;
+  min-height: 35px;
 }
 /* Empty. Add your own CSS if you like */
 *,

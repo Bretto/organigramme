@@ -3,7 +3,7 @@
 @import "employee/employee.styl";
 @import "tag/tag.styl";
 @import "loader/loader.styl";
-@import "loggin/loggin.styl";
+@import "login/login.styl";
 
 /* Empty. Add your own CSS if you like */
 *, *:before, *:after {
@@ -11,6 +11,7 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 
 html, body {
   margin 0;
@@ -46,6 +47,7 @@ html, body {
       padding: 0;
       margin-bottom: 10px;
     }
+
 
     button {
       font-size: 30px;
@@ -174,11 +176,13 @@ html, body {
 form {
 
   .errors {
-    background: rgba(0, 0, 0, 0.1);
-    padding: 4px;
-    margin: 0 20px;
-    margin-top: -9px;
-    color: white;
+    div{
+      background: rgba(0, 0, 0, 0.1);
+      padding: 4px;
+      margin: 0 20px;
+      margin-top: -9px;
+      color: white;
+    }
   }
 
 }

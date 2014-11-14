@@ -1,0 +1,125 @@
+<div ng-controller="LoginCtrl as loginCtrl" class="flip-container" ng-show="isLoading"
+     layout="vertical"
+     ng-class="{doFlip: flip}">
+    <!--splash-screen-->
+
+    <div class="flipper login">
+
+        <section layout="vertical" flex layout-align="center" class="front">
+
+            <form name="loginForm" novalidate="" layout="vertical">
+
+                <button ng-click="flip = !flip">
+                    Sign up now <i class="fa fa-angle-double-right"></i>
+                </button>
+
+                <input type="text" ng-model="loginCtrl.loginUser.username"
+                       name="username"
+                       required
+                       minlength="4"
+                       maxlength="15"
+                       pattern="^[-\w]+$"
+                       placeholder="Username"/>
+
+                <div ng-if="loginForm.username.$touched" ng-messages="loginForm.username.$error" class="errors">
+                    <div ng-message="required">You did not enter your username</div>
+                    <div ng-message="minlength">Your username must be longer than 4 characters</div>
+                    <div ng-message="maxlength">Your username is too long</div>
+                    <div ng-message="pattern">Your username must consist of alphanumeric characters</div>
+                    <!--<div ng-message="usernameAvailable">The username entered has already been registered</div>-->
+                </div>
+
+            <input type="text" ng-model="loginCtrl.loginUser.password"
+                   name="password" required placeholder="Password"/>
+            </form>
+            <!--ng-class="{'btn-disabled': !loginForm.$valid}"-->
+            <button ng-click="loginCtrl.onLogin(loginCtrl.loginUser)"
+                    ng-class="{'btn-disabled': !loginForm.$valid}">
+
+                <i class="fa fa-user"></i> Login
+            </button>
+
+            <form name="submitLoginForm" novalidate="" layout="vertical">
+
+                <input class="hidden" type="text" ng-model="loginCtrl.loginUser.loginValidation"
+                       axi-login-validator
+                       name="loginValidation"/>
+
+                <div ng-hide="submitLoginForm.loginValidation.$valid"
+                     ng-messages="submitLoginForm.loginValidation.$error"
+                     class="errors">
+                    <div ng-message="loginValidation">The username or the password is incorrect</div>
+                    <div ng-if="submitLoginForm.loginValidation.$pending">
+                        Checking Username...
+                    </div>
+                </div>
+
+            </form>
+
+
+
+
+            <!--<axi-loader></axi-loader>-->
+        </section>
+
+
+        <section layout="vertical" flex layout-align="center" class="back">
+
+            <form name="signupForm" novalidate="" layout="vertical" class="ng-pristine ng-valid ng-valid-required">
+
+                <button ng-click="flip = !flip">
+                    Back to login <i class="fa fa-angle-double-right"></i>
+                </button>
+
+                <input type="text" ng-model="loginCtrl.signupUser.username"
+                       name="username"
+                       required
+                       minlength="4"
+                       maxlength="15"
+                       pattern="^[-\w]+$"
+                       placeholder="Username"/>
+
+                <div ng-if="signupForm.username.$touched" ng-messages="signupForm.username.$error" class="errors">
+                    <div ng-message="required">You did not enter your username</div>
+                    <div ng-message="minlength">Your username must be longer than 4 characters</div>
+                    <div ng-message="maxlength">Your username is too long</div>
+                    <div ng-message="pattern">Your username must consist of alphanumeric characters</div>
+                    <!--<div ng-message="usernameAvailable">The username entered has already been registered</div>-->
+                </div>
+
+                <!--<div ng-hide="signupForm.login.$valid" ng-messages="signupForm.login.$error"-->
+                <!--class="errors">-->
+                <!--<div ng-message="required">You did not enter your name</div>-->
+                <!--</div>-->
+
+                <input type="password" ng-model="loginCtrl.signupUser.password"
+                       name="password" required placeholder="Password"/>
+
+                <input type="password" ng-model="loginCtrl.signupUser.confPassword"
+                       name="confPassword"
+                       required
+                       compare-to-validator="loginCtrl.signupUser.password"
+                       placeholder="Password confirmation"/>
+
+                <div ng-if="signupForm.confPassword.$touched" ng-messages="signupForm.confPassword.$error"
+                     class="errors">
+                    <div ng-message="compareTo">Both passwords must match</div>
+                </div>
+
+
+                <button ng-click=""
+                        ng-class="{'btn-disabled': !signupForm.$valid}">
+                    <i class="fa fa-user"></i> Register
+                </button>
+
+            </form>
+            <!--<axi-loader></axi-loader>-->
+        </section>
+
+    </div>
+
+
+</div>
+
+
+

@@ -18,6 +18,7 @@
             vm.dataContext = AppModelService.dataContext;
             vm.manager = AppModelService.dataContext.manager;
 
+            vm._timeout = $timeout;
             vm._onGoto = _onGoto;
             vm._onSave = _onSave;
 

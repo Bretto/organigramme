@@ -9,14 +9,7 @@
         console.log('LoginService');
 
         var self = this;
-        self.isAuthenticated = isAuthenticated;
-
-        function isAuthenticated(){
-            var deferred = $q.defer();
-            deferred.resolve({isAuthenticated:false});
-
-            return deferred.promise;
-        }
+        self.isAuthenticated = false;
 
         return self;
     }

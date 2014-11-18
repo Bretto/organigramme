@@ -61,7 +61,7 @@
     }
 
 
-    function axiLoginValidator($q, $timeout, OdbService, $state) {
+    function axiLoginValidator($q, OdbService, $state, LoginService) {
 
         var directive = {
             link: link,
@@ -80,20 +80,16 @@
 
                if(loginUser){
 
-                   // call the remote service
-                   //$timeout(function(){
-                   //    console.log(loginUser);
-                   //    deferred.reject();
-                   //},1000);
-
                    OdbService.auth(loginUser.username, loginUser.password);
 
                    OdbService.query("select from ouser")
                        .then(function (res) {
                            console.log('onLogin', res);
-                           deferred.resolve();
+                           LoginService.isAuthenticated = true;
                            $state.go('api.main.employee');
+                           deferred.resolve();
                        }, function (err) {
+                           LoginService.isAuthenticated = false;
                            deferred.reject();
                        });
 
@@ -107,7 +103,7 @@
         }
     }
 
-    function axiUsernameAvailableValidator($q, $timeout) {
+    function axiUsernameAvailableValidator($q, $timeout, OdbService) {
 
         var directive = {
             link: link,
@@ -124,12 +120,19 @@
 
                 if(username){
 
-                    // call the remote service
-                    $timeout(function(){
-                        console.log(username);
-                        //deferred.reject();
-                        deferred.resolve();
-                    },1000);
+                    OdbService.query("select from OUser where name = '" + username + "'")
+                        .then(function (res) {
+
+                            if(res.data.result.length === 0){
+                                deferred.resolve();
+                            }else{
+                                deferred.reject();
+                            }
+
+                        }, function (err) {
+                            deferred.reject();
+                        });
+
                 }else{
                     deferred.resolve();
                 }

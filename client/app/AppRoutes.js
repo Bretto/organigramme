@@ -123,17 +123,14 @@
 
     function run($rootScope, $urlRouter, LoginService, $state){
         $rootScope.$on('$locationChangeSuccess', function(evt) {
-            // Halt state change from even starting
+
             evt.preventDefault();
-            // Perform custom logic
-            var isAuthenticated = false;//LoginService.isAuthenticated()
-            // Continue with the update and state transition if logic allows
-            if (isAuthenticated){
+
+            if (LoginService.isAuthenticated){
                 $urlRouter.sync();
             }else{
                 $state.go('api.login');
             }
-
 
         });
     }

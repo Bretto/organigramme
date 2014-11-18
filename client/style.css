@@ -1463,6 +1463,9 @@
   position: absolute;
   z-index: 1;
 }
+.app-wrap {
+  height: 100%;
+}
 .employee {
   -webkit-transition: 0.3s ease-in-out -webkit-transform;
 /*background-color: #202a39;*/

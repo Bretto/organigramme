@@ -39,7 +39,7 @@
 
         <section layout="vertical" flex>
             <ul class="employee-tile-wrap" layout="horizontal">
-                <li ng-click="app._onGoto('api.employeeId', {employeeId: employee.id})"
+                <li ng-click="app._onGoto('api.main.employeeId', {employeeId: employee.id})"
                     ng-class="{active: app._isEmpActive(employee)}"
                     class="employee-tile" ax-bg-color="employee"
                     ng-repeat="employee in app.getEmployees(app.searchIds) | limitTo: 100">

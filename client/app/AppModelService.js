@@ -5,10 +5,11 @@
         .service('AppModelService', AppModelService);
 
 
-    function AppModelService($rootScope, $state, DataContext, ngBreeze) {
+    function AppModelService($rootScope, $state, DataContext, ngBreeze, LoginService) {
         console.log('AppModel');
 
         var self = this;
+
 
         self.dataContext = DataContext;
         self.getEmployees = getEmployees;
@@ -66,6 +67,8 @@
 //                };
 
             });
+
+
 
 
         return self;

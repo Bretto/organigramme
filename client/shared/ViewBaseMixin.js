@@ -5,7 +5,7 @@
         .service('ViewBaseMixin', ViewBaseMixin);
 
 
-    function ViewBaseMixin($state, AppModelService, $rootScope, $timeout) {
+    function ViewBaseMixin($state, AppModelService, $rootScope, $timeout, OdbService) {
         console.log('ViewBaseMixin');
 
 
@@ -21,6 +21,7 @@
             vm._timeout = $timeout;
             vm._onGoto = _onGoto;
             vm._onSave = _onSave;
+            vm._ws = OdbService;
 
             vm._isEmpActive = _isEmpActive;
 

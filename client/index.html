@@ -32,6 +32,7 @@
     <script src="bower_components/breezejs/breeze.debug.js"></script>
 
     <script src="logger/LoggerModule.js"></script>
+    <script src="orientdb/OrientdbModule.js"></script>
 
     <script src="app/AppModule.js"></script>
     <script src="app/AppCtrl.js"></script>
@@ -41,6 +42,7 @@
     <script src="app/AppModelService.js"></script>
 
     <script src="login/LoginCtrl.js"></script>
+    <script src="login/LoginService.js"></script>
 
     <script src="datacontext/DataContextBase.js"></script>
     <script src="datacontext/DataContext.js"></script>
@@ -68,12 +70,10 @@
 
 <body ng-app="AppModule">
 
-<div ng-controller="AppCtrl as app">
+<div ng-controller="AppCtrl as app" class="app-wrap">
     <ui-view></ui-view>
-
-    <div ng-include="'login/login.html'"></div>
-
-
+    <axi-loader ng-show="isLoading"></axi-loader>
+    <!--<div ng-include="'login/login.html'"></div>-->
 </div>
 
 

@@ -1,11 +1,11 @@
 <div layout="vertical" class="view employee view-animate-container " ng-controller="EmployeeViewCtrl as employeeView">
 
     <header layout="horizontal" layout-align="space-between end">
-        <button ng-click="employeeView._onGoto('api.employee', {isBack:true})"><i class="fa fa-arrow-left"></i></button>
+        <button ng-click="employeeView._onGoto('api.main.employee', {isBack:true})"><i class="fa fa-arrow-left"></i></button>
 
         <h1 class="title">Test</h1>
 
-        <button ng-click="employeeView._onGoto('api.employeeEdit', {employeeId: employeeView.currentEmployee.id})"
+        <button ng-click="employeeView._onGoto('api.main.employeeEdit', {employeeId: employeeView.currentEmployee.id})"
                 class=""><i class="fa fa-cogs"></i></button>
     </header>
 
@@ -20,7 +20,7 @@
 
                 <h1 class="title">Tags</h1>
 
-                <button ng-click="employeeView._onGoto('api.tagAdd', {employeeId: employeeView.currentEmployee.id})"
+                <button ng-click="employeeView._onGoto('api.main.tagAdd', {employeeId: employeeView.currentEmployee.id})"
                         class=""><i class="fa fa-plus-circle"></i></button>
             </header>
             <section layout="vertical" flex>

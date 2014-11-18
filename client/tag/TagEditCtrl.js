@@ -26,7 +26,7 @@
 
         function onDelete() {
             vm.dataContext.deleteTag(vm.currentTag);
-            vm._onGoto('api.tag');
+            vm._onGoto('api.main.tag');
         }
 
     }

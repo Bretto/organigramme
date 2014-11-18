@@ -31,7 +31,7 @@
                 vm.currentEmployee.entityAspect.rejectChanges();
             }
 
-            vm._onGoto('api.employeeId', {employeeId: vm.currentEmployee.id, isBack:true});
+            vm._onGoto('api.main.employeeId', {employeeId: vm.currentEmployee.id, isBack:true});
         }
 
 

@@ -30,8 +30,7 @@
                 addFakeData();
             }
             dataContext.importEntities();
-            //deferred.resolve();
-
+            deferred.resolve({data:'OK'});
 
             return deferred.promise;
 

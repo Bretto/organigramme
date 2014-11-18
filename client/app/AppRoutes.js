@@ -3,35 +3,56 @@
 
     angular
         .module('AppModule')
-        .config(config);
+        .config(config)
+        .run(run)
+
 
 
     function config($stateProvider, $urlRouterProvider) {
 
         //puts on hold the route navigation until the data is loaded
         function appInit(AppStart){
-
-
-
-
             return AppStart.start();
         }
 
-        function AppStartCtrl($rootScope, initData){
-//            console.log("Application initialised with: ", initData);
+        function AppStartCtrl($rootScope, dataPromise){
+           console.log("Application initialised with: ", dataPromise.data);
            $rootScope.isLoading = false;
+        }
+
+        //puts on hold the route navigation until the user is authenticated
+        function authenticateUser(LoginService){
+            return LoginService.isAuthenticated();
+        }
+
+        function AuthenticateCtrl(authenticatePromise, $state, $urlRouter){
+
+            if(authenticatePromise.isAuthenticated){
+                console.log('user is Authenticated');
+            }else{
+                $state.go('api.login');
+            }
         }
 
 
         $stateProvider
             .state('api', {
-                url: "/api",
                 abstract: true,
-                templateUrl: 'app/app.html',
+                url: "/api",
+                template: '<ui-view></ui-view>',
                 controller: AppStartCtrl,
-                resolve: {initData: appInit}
+                resolve: {dataPromise: appInit}
             })
-            .state('api.employee', {
+            .state('api.login', {
+                url: "/login",
+                templateUrl: 'login/login.html'
+            })
+            .state('api.main', {
+                abstract: true,
+                url: "/main",
+                templateUrl: 'app/app.html'
+            })
+            .state('api.main.employee', {
                 url: "/employee",
                 views: {
                     'mainContent': {
@@ -39,7 +60,7 @@
                     }
                 }
             })
-            .state('api.employeeNew', {
+            .state('api.main.employeeNew', {
                 url: "/employee/new",
                 views: {
                     'mainContent': {
@@ -47,7 +68,7 @@
                     }
                 }
             })
-            .state('api.employeeId', {
+            .state('api.main.employeeId', {
                 url: '/employee/:employeeId',
                 views: {
                     'mainContent': {
@@ -55,7 +76,7 @@
                     }
                 }
             })
-            .state('api.employeeEdit', {
+            .state('api.main.employeeEdit', {
                 url: '/employee/:employeeId/edit',
                 views: {
                     'mainContent': {
@@ -63,7 +84,7 @@
                     }
                 }
             })
-            .state('api.tag', {
+            .state('api.main.tag', {
                 url: "/tag",
                 views: {
                     'mainContent': {
@@ -71,7 +92,7 @@
                     }
                 }
             })
-            .state('api.tagNew', {
+            .state('api.main.tagNew', {
                 url: "/tag/new",
                 views: {
                     'mainContent': {
@@ -79,7 +100,7 @@
                     }
                 }
             })
-            .state('api.tagEdit', {
+            .state('api.main.tagEdit', {
                 url: "/tag/:tagId/edit",
                 views: {
                     'mainContent': {
@@ -87,7 +108,7 @@
                     }
                 }
             })
-            .state('api.tagAdd', {
+            .state('api.main.tagAdd', {
                 url: "/tag/:employeeId/add",
                 views: {
                     'mainContent': {
@@ -96,8 +117,25 @@
                 }
             });
 
-        $urlRouterProvider.otherwise("/api/employee");
+        $urlRouterProvider.otherwise("/api/login");
 
+    }
+
+    function run($rootScope, $urlRouter, LoginService, $state){
+        $rootScope.$on('$locationChangeSuccess', function(evt) {
+            // Halt state change from even starting
+            evt.preventDefault();
+            // Perform custom logic
+            var isAuthenticated = false;//LoginService.isAuthenticated()
+            // Continue with the update and state transition if logic allows
+            if (isAuthenticated){
+                $urlRouter.sync();
+            }else{
+                $state.go('api.login');
+            }
+
+
+        });
     }
 
 

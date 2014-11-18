@@ -27,7 +27,7 @@
 
         function onTagSelect(tag) {
             vm.dataContext.newEntity('EmployeeTagMap', { employee_id: vm.currentEmployee.id, tag_id: tag.id});
-            vm._onGoto('api.employeeId', {employeeId: vm.currentEmployee.id});
+            vm._onGoto('api.main.employeeId', {employeeId: vm.currentEmployee.id});
         }
 
         $scope.$on("$destroy", function () {

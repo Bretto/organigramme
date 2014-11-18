@@ -4,35 +4,37 @@
     angular.module('AppModule')
         .controller('LoginCtrl', LoginCtrl)
         .directive('compareToValidator', compareToValidator)
-        .directive('axiLoginValidator', axiLoginValidator);
+        .directive('axiLoginValidator', axiLoginValidator)
+        .directive('axiUsernameAvailableValidator', axiUsernameAvailableValidator);
+
 
     function LoginCtrl($scope, $log, ViewBaseMixin) {
 
         $log = $log.getInstance("LoginCtrl");
         $log.info('LoginCtrl');
 
-
-
         ViewBaseMixin.call(this, {name: 'LoginCtrl'});
         var vm = this;
         vm.onLogin = onLogin;
         vm.onRegister = onRegister;
 
-
         function onLogin(loginUser){
 
             var form = $scope.submitLoginForm;
             // the copy is to associated a new promise with the loginValidation each time
-            // otherwise the form thinks is the same object and don't trigger the $asyncValidators
+            // otherwise the form thinks it's the same object and don't trigger the $asyncValidators
             form.loginValidation.$setViewValue(angular.copy(loginUser));
         }
 
         function onRegister(registerUser){
 
-            var form = $scope.registerForm;
-            // the copy is to associated a new promise with the loginValidation each time
-            // otherwise the form thinks is the same object and don't trigger the $asyncValidators
-            form.registerValidation.$setViewValue(angular.copy(registerUser));
+            vm._ws.query("insert into ouser set name = '" + registerUser.username + "', status = 'ACTIVE', password = '" + registerUser.password + "' , roles = [#4:2]")
+                .then(function (res) {
+                    console.log('onRegister', res);
+                    $scope.flip = false;
+                }, function (err) {
+                    console.log(err);
+                });
         }
 
     }
@@ -58,7 +60,8 @@
         }
     }
 
-    function axiLoginValidator($q, $timeout) {
+
+    function axiLoginValidator($q, $timeout, OdbService, $state) {
 
         var directive = {
             link: link,
@@ -73,15 +76,29 @@
            function isLoggedIn(loginUser){
                var deferred = $q.defer();
 
+               console.log('isLoggedIn');
+
                if(loginUser){
 
                    // call the remote service
-                   $timeout(function(){
-                       console.log(loginUser);
-                       deferred.reject();
-                   },1000);
+                   //$timeout(function(){
+                   //    console.log(loginUser);
+                   //    deferred.reject();
+                   //},1000);
+
+                   OdbService.auth(loginUser.username, loginUser.password);
+
+                   OdbService.query("select from ouser")
+                       .then(function (res) {
+                           console.log('onLogin', res);
+                           deferred.resolve();
+                           $state.go('api.main.employee');
+                       }, function (err) {
+                           deferred.reject();
+                       });
+
                }else{
-                   deferred.resolve(true);
+                   deferred.resolve();
                }
 
                return deferred.promise;
@@ -89,6 +106,39 @@
 
         }
     }
+
+    function axiUsernameAvailableValidator($q, $timeout) {
+
+        var directive = {
+            link: link,
+            require: 'ngModel'
+        };
+        return directive;
+
+        function link(scope, element, attrs, ngModel) {
+
+            ngModel.$asyncValidators.usernameAvailable = isUsernameAvailable;
+
+            function isUsernameAvailable(username){
+                var deferred = $q.defer();
+
+                if(username){
+
+                    // call the remote service
+                    $timeout(function(){
+                        console.log(username);
+                        //deferred.reject();
+                        deferred.resolve();
+                    },1000);
+                }else{
+                    deferred.resolve();
+                }
+
+                return deferred.promise;
+            }
+        }
+    }
+
 
 }());
 

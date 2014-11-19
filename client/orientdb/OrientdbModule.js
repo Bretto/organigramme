@@ -72,9 +72,8 @@
 
  connect remote:localhost/Organigramme Visitor visitor
 
-
-
-
+ CREATE CLASS AppData extends V
+ CREATE PROPERTY AppData.data STRING
 
 
 

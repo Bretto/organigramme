@@ -30,17 +30,7 @@
 
             vm.isModified = isModified;
             vm.exportEntities = exportEntities;
-            vm.doSynchronization = doSynchronization;
 
-            function doSynchronization(){
-
-                OdbService.query("select from ouser")
-                    .then(function (res) {
-                        console.log('onLogin', res);
-                    }, function (err) {
-                        console.log(err);
-                    });
-            }
 
             Object.defineProperty(vm, 'isSynchronized', {
                 get: function () {

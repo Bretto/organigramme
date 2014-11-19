@@ -61,13 +61,39 @@
     }
 
 
-    function axiLoginValidator($q, OdbService, $state, LoginService) {
+    function axiLoginValidator($q, OdbService, $state, LoginService, DataContext) {
 
         var directive = {
             link: link,
             require: 'ngModel'
         };
         return directive;
+
+        function setDataId(deferred){
+
+            DataContext.manager.acceptChanges();
+            var exportData = DataContext.manager.exportEntities();
+            var data = {data:exportData};
+
+            var command = "insert into AppData content " + JSON.stringify(data);// + entity['@rid'];
+            OdbService.query(command)
+                .then(function (res) {
+                    var dataId = res.data.result[0]['@rid'];
+                    var appInfo = DataContext.getAllEntities('AppInfo')[0];
+                    appInfo.dataId = dataId;
+
+                    console.log('saved appInfo dataId', appInfo);
+
+                    LoginService.isAuthenticated = true;
+                    $state.go('api.main.employee');
+                    deferred.resolve();
+
+                }, function (err) {
+                    console.log(err);
+                });
+
+        }
+
 
         function link(scope, element, attrs, ngModel) {
 
@@ -85,9 +111,16 @@
                    OdbService.query("select from ouser")
                        .then(function (res) {
                            console.log('onLogin', res);
-                           LoginService.isAuthenticated = true;
-                           $state.go('api.main.employee');
-                           deferred.resolve();
+                           var appInfo = DataContext.getAllEntities('AppInfo')[0];
+                           if(appInfo.dataId){
+                               LoginService.isAuthenticated = true;
+                               $state.go('api.main.employee');
+                               deferred.resolve();
+                           }else{
+                               setDataId(deferred);
+                           }
+
+
                        }, function (err) {
                            LoginService.isAuthenticated = false;
                            deferred.reject();
@@ -141,7 +174,6 @@
             }
         }
     }
-
 
 }());
 

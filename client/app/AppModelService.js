@@ -17,7 +17,6 @@
         self.entityQuery = ngBreeze.EntityQuery;
         self.predicate = ngBreeze.Predicate;
 
-        self.isSynchronized = true;
 
         function getEmployees(searchIds) {
             var whereClause = null;

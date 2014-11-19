@@ -28,15 +28,15 @@
             //if (dataContext.importEntities().length === 0) {
             //    addFakeData();
             //}
-            dataContext.importEntities();
-            var appState = DataContext.getAllEntities('AppState')[0];
-            console.log('appState isSynchronized:', appState.isSynchronized);
 
-            if(!appState){
-                appState = {isSynchronized: true};
-                DataContext.newEntity('AppState', appState);
+            dataContext.importEntities();
+            var appInfo = DataContext.getAllEntities('AppInfo')[0];
+
+            if(!appInfo){
+                appInfo = {isSynchronized: true};
+                DataContext.newEntity('AppInfo', appInfo);
             }
-            AppModelService.isSynchronized = appState.isSynchronized;
+
             deferred.resolve({data:'OK'});
 
             return deferred.promise;

@@ -5,11 +5,10 @@
         .service('AppModelService', AppModelService);
 
 
-    function AppModelService($rootScope, $state, DataContext, ngBreeze, LoginService) {
+    function AppModelService($rootScope, $state, DataContext, ngBreeze) {
         console.log('AppModel');
 
         var self = this;
-
 
         self.dataContext = DataContext;
         self.getEmployees = getEmployees;
@@ -17,6 +16,8 @@
 
         self.entityQuery = ngBreeze.EntityQuery;
         self.predicate = ngBreeze.Predicate;
+
+        self.isSynchronized = true;
 
         function getEmployees(searchIds) {
             var whereClause = null;
@@ -58,18 +59,7 @@
                     self.currentTag = null;
                 }
 
-//                console.log('fromParams.isBack', fromParams);
-//                self.direction = (fromParams.isBack)? 'back': '';
-
-//                $rootScope.vewSlideAnimation = {
-//                    enter: direction ? 'slide-left-enter' : 'slide-right-enter',
-//                    leave: direction ? 'slide-left-leave' : 'slide-right-leave'
-//                };
-
             });
-
-
-
 
         return self;
 

@@ -19,7 +19,7 @@
             var entity = vm.dataContext.getEntityById('EmployeeTagMap', employeeTagMap.id)[0];
             entity.entityAspect.setDeleted();
 //                vm.dataContext.manager.acceptChanges();
-            vm.dataContext.exportEntities();
+            vm.exportEntities();
         }
     }
 

@@ -97,6 +97,7 @@
             var exportData = manager.exportEntities();
 //            console.log(exportData);
             $window.localStorage.setItem("entityGraph", exportData);
+
         }
 
         function importEntities() {

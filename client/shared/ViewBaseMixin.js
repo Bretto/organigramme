@@ -29,6 +29,27 @@
             vm.getEmployees = getEmployees;
 
             vm.isModified = isModified;
+            vm.exportEntities = exportEntities;
+            vm.doSynchronization = doSynchronization;
+
+            function doSynchronization(){
+
+                OdbService.query("select from ouser")
+                    .then(function (res) {
+                        console.log('onLogin', res);
+                    }, function (err) {
+                        console.log(err);
+                    });
+            }
+
+            Object.defineProperty(vm, 'isSynchronized', {
+                get: function () {
+                    return AppModelService.isSynchronized;
+                },
+                set: function (val) {
+                    AppModelService.isSynchronized = val;
+                }
+            });
 
 
             Object.defineProperty(vm, 'currentEmployee', {
@@ -49,6 +70,12 @@
                 }
             });
 
+            function exportEntities() {
+                var appState = vm.dataContext.getAllEntities('AppState')[0];
+                AppModelService.isSynchronized = false;
+                appState.isSynchronized = AppModelService.isSynchronized;
+                vm.dataContext.exportEntities();
+            }
 
             function isModified(entity) {
                 var modified = true;
@@ -73,7 +100,7 @@
 
             function _onSave(state, params, options) {
 
-                vm.dataContext.exportEntities();
+                vm.exportEntities();
                 vm._onGoto(state, params, options);
             }
 

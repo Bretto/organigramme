@@ -7,7 +7,9 @@
                 <i class="fa fa-tags"></i>
             </button>
             <!--ng-click="employees.onOpenSearch()"-->
-            <h1 class="title">V2</h1>
+            <button ng-class="{'btn-disabled': employees.isSynchronized}">
+                <i class="fa fa-cloud-upload"></i>
+            </button>
 
             <button ng-click="employees._onGoto('api.main.employeeNew')">
                 <i class="fa fa-plus-circle"></i>

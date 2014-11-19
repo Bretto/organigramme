@@ -1,11 +1,11 @@
 <div layout="vertical" class="view employee" ng-controller="EmployeeEditCtrl as employeeEdit">
 
     <header layout="horizontal" layout-align="space-between end">
-        <button ng-click="employeeEdit.onBack('api.employee')">
+        <button ng-click="employeeEdit.onBack('api.main.employee')">
             <i class="fa fa-arrow-left"></i>
         </button>
         <h1 class="title">Employee</h1>
-        <button ng-click="employeeEdit._onSave('api.employee')"
+        <button ng-click="employeeEdit._onSave('api.main.employee')"
                 ng-class="{'btn-disabled': employeeEdit.isSaveDisabled(employeeEdit.currentEmployee)}">
             <i class="fa fa-floppy-o"></i>
         </button>

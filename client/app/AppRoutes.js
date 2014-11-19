@@ -20,21 +20,6 @@
            $rootScope.isLoading = false;
         }
 
-        //puts on hold the route navigation until the user is authenticated
-        function authenticateUser(LoginService){
-            return LoginService.isAuthenticated();
-        }
-
-        function AuthenticateCtrl(authenticatePromise, $state, $urlRouter){
-
-            if(authenticatePromise.isAuthenticated){
-                console.log('user is Authenticated');
-            }else{
-                $state.go('api.login');
-            }
-        }
-
-
         $stateProvider
             .state('api', {
                 abstract: true,

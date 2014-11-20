@@ -106,7 +106,7 @@
 
     }
 
-    function run($rootScope, $urlRouter, LoginService, $state){
+    function run($rootScope, $urlRouter, LoginService, $state, DataContext){
         $rootScope.$on('$locationChangeSuccess', function(evt) {
 
             evt.preventDefault();
@@ -118,6 +118,24 @@
             }
 
         });
+
+
+        $rootScope.$on('$stateChangeSuccess',
+            function (event, toState, toParams, fromState, fromParams) {
+
+                if ($state.params.employeeId) {
+                    DataContext.currentEmployee = DataContext.getEntityById('Employee', $state.params.employeeId)[0];
+                } else {
+                    DataContext.currentEmployee = null;
+                }
+
+                if ($state.params.tagId) {
+                    DataContext.currentTag = DataContext.getEntityById('Tag', $state.params.tagId)[0];
+                } else {
+                    DataContext.currentTag = null;
+                }
+
+            });
     }
 
 

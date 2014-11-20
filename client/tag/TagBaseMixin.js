@@ -20,7 +20,7 @@
             function exist(entity) {
                 var bool = false;
                 if (!entity.name) { return; }
-                bool = !!vm.appModel.getTags(entity).length;
+                bool = !!vm.dataContext.getTags(entity).length;
 
                 return bool;
             }

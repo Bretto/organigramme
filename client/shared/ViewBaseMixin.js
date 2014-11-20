@@ -5,7 +5,7 @@
         .service('ViewBaseMixin', ViewBaseMixin);
 
 
-    function ViewBaseMixin($state, AppModelService, $rootScope, $timeout, OdbService) {
+    function ViewBaseMixin($state, $rootScope, $timeout, OdbService, DataContext) {
         console.log('ViewBaseMixin');
 
 
@@ -14,9 +14,8 @@
             var vm = this;
             vm.name = option.name;// name is a helper property to determine whose instance of ViewBase is running;
 
-            vm.appModel = AppModelService;
-            vm.dataContext = AppModelService.dataContext;
-            vm.manager = AppModelService.dataContext.manager;
+            vm.dataContext = DataContext;
+            vm.manager = DataContext.manager;
 
             vm._timeout = $timeout;
             vm._onGoto = _onGoto;
@@ -29,22 +28,10 @@
             vm.getEmployees = getEmployees;
 
             vm.isModified = isModified;
-            vm.exportEntities = exportEntities;
-
-
-            Object.defineProperty(vm, 'isSynchronized', {
-                get: function () {
-                    return AppModelService.isSynchronized;
-                },
-                set: function (val) {
-                    AppModelService.isSynchronized = val;
-                }
-            });
-
 
             Object.defineProperty(vm, 'currentEmployee', {
                 get: function () {
-                    return AppModelService.currentEmployee;
+                    return DataContext.currentEmployee;
                 },
                 set: function (obj) {
                     throw new Error('do not set this');
@@ -53,19 +40,12 @@
 
             Object.defineProperty(vm, 'currentTag', {
                 get: function () {
-                    return AppModelService.currentTag;
+                    return DataContext.currentTag;
                 },
                 set: function (obj) {
                     throw new Error('do not set this');
                 }
             });
-
-            function exportEntities() {
-                var appState = vm.dataContext.getAllEntities('AppState')[0];
-                AppModelService.isSynchronized = false;
-                appState.isSynchronized = AppModelService.isSynchronized;
-                vm.dataContext.exportEntities();
-            }
 
             function isModified(entity) {
                 var modified = true;
@@ -76,11 +56,11 @@
             }
 
             function getTags() {
-                return vm.appModel.getTags();
+                return vm.dataContext.getTags();
             }
 
             function getEmployees(searchIds) {
-                return vm.appModel.getEmployees(searchIds);
+                return vm.dataContext.getEmployees(searchIds);
             }
 
             function _isEmpActive(emp) {
@@ -90,7 +70,7 @@
 
             function _onSave(state, params, options) {
 
-                vm.exportEntities();
+                vm.dataContext.exportEntities();
                 vm._onGoto(state, params, options);
             }
 

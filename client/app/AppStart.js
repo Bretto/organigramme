@@ -5,7 +5,7 @@
         .module('AppModule')
         .service('AppStart', AppStart);
 
-    function AppStart($q, AppConfig, AppModelService, DataContext) {
+    function AppStart($q, AppConfig, DataContext) {
 
         var initType = AppConfig.config.initType;
         var dataContext = DataContext;
@@ -32,9 +32,9 @@
             dataContext.importEntities();
             var appInfo = DataContext.getAllEntities('AppInfo')[0];
 
-            if(!appInfo){
-                appInfo = {isSynchronized: true};
-                DataContext.newEntity('AppInfo', appInfo);
+            if(appInfo){
+                console.log('appInfo', appInfo);
+                DataContext.appInfo = appInfo;
             }
 
             deferred.resolve({data:'OK'});

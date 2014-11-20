@@ -19,6 +19,7 @@
 
         function onSave(state) {
             vm.dataContext.newEntity('Employee', vm.tempEmployee);
+            vm.dataContext.exportEntities();
             vm._onGoto(state);
         }
 

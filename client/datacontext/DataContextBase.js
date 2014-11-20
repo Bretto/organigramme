@@ -84,12 +84,11 @@
             data.id = getNegId(entityType);
             var entity = manager.createEntity(entityType, data);
             manager.addEntity(entity);
-            exportEntities();
 
             return entity;
         }
 
-        function exportEntities() {
+        function _exportEntities() {
 //            console.log('exportEntities');
 //            console.log(manager.getEntities());
 
@@ -135,11 +134,14 @@
             config: config,
             loadJson: loadJson,
 
+            entityQuery: Breeze.EntityQuery,
+            predicate: Breeze.Predicate,
+
             getAllEntities: getAllEntities,
             getEntityById: getEntityById,
             newEntity: newEntity,
 
-            exportEntities: exportEntities,
+            _exportEntities: _exportEntities,
             importEntities: importEntities,
 
             manager: manager

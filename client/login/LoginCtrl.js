@@ -67,72 +67,91 @@
             link: link,
             require: 'ngModel'
         };
+
         return directive;
-
-        function setDataId(deferred){
-
-            DataContext.manager.acceptChanges();
-            var exportData = DataContext.manager.exportEntities();
-            var data = {data:exportData};
-
-            var command = "insert into AppData content " + JSON.stringify(data);// + entity['@rid'];
-            OdbService.query(command)
-                .then(function (res) {
-                    var dataId = res.data.result[0]['@rid'];
-                    var appInfo = DataContext.getAllEntities('AppInfo')[0];
-                    appInfo.dataId = dataId;
-
-                    console.log('saved appInfo dataId', appInfo);
-
-                    LoginService.isAuthenticated = true;
-                    $state.go('api.main.employee');
-                    deferred.resolve();
-
-                }, function (err) {
-                    console.log(err);
-                });
-
-        }
-
 
         function link(scope, element, attrs, ngModel) {
 
             ngModel.$asyncValidators.loginValidation = isLoggedIn;
 
-           function isLoggedIn(loginUser){
-               var deferred = $q.defer();
+            function isLoggedIn(loginUser){
+                var deferred = $q.defer();
 
-               console.log('isLoggedIn');
+                if(loginUser){
+                    doLogin(loginUser, deferred);
+                }else{
+                    deferred.resolve();
+                }
 
-               if(loginUser){
+                return deferred.promise;
+            }
 
-                   OdbService.auth(loginUser.username, loginUser.password);
+        }
 
-                   OdbService.query("select from ouser")
-                       .then(function (res) {
-                           console.log('onLogin', res);
-                           var appInfo = DataContext.getAllEntities('AppInfo')[0];
-                           if(appInfo.dataId){
-                               LoginService.isAuthenticated = true;
-                               $state.go('api.main.employee');
-                               deferred.resolve();
-                           }else{
-                               setDataId(deferred);
-                           }
+        function doLogin(loginUser, deferred) {
+            console.log('doLogin');
+            OdbService.auth(loginUser.username, loginUser.password);
 
+            OdbService.query("select from ouser")
+                .then(function (res) {
 
-                       }, function (err) {
-                           LoginService.isAuthenticated = false;
-                           deferred.reject();
-                       });
+                    var user = {name:"Brett Coffin"};//res...
 
-               }else{
-                   deferred.resolve();
-               }
+                    if(DataContext.appInfo){
+                        completeLogin(deferred);
+                    }else{
+                        createAppInfo(user, deferred);
+                    }
 
-               return deferred.promise;
-           }
+                }, function (err) {
+                    LoginService.isAuthenticated = false;
+                    deferred.reject();
+                });
+        }
 
+        function createAppInfo(user, deferred) {
+            console.log('createAppInfo');
+            var appInfo = DataContext.newEntity('AppInfo', {isSynchronized: true, user:user});
+            var exportData = DataContext.exportEntities();
+            var data = {data:exportData};
+
+            var command = "insert into AppData content " + JSON.stringify(data);
+            OdbService.query(command)
+                .then(function (res) {
+                    var dataId = res.data.result[0]['@rid'];
+                    appInfo.dataId = dataId;
+                    saveAppInfo(appInfo, deferred);
+                }, function (err) {
+                    console.log(err);
+                    deferred.reject();
+                });
+
+        }
+
+        function saveAppInfo(appInfo, deferred) {
+            console.log('saveAppInfo');
+            DataContext.appInfo = appInfo;
+            DataContext.exportEntities();
+
+            var exportData = DataContext.manager.exportEntities();
+            var data = {data:exportData};
+
+            var command = "update AppData content " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
+            OdbService.query(command)
+                .then(function (res) {
+                    console.log('update AppData content', res);
+                    completeLogin(deferred);
+                }, function (err) {
+                    console.log(err);
+                    deferred.reject();
+                });
+        }
+
+        function completeLogin(deferred) {
+            console.log('completeLogin');
+            LoginService.isAuthenticated = true;
+            $state.go('api.main.employee');
+            deferred.resolve();
         }
     }
 

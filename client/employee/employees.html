@@ -8,8 +8,14 @@
             </button>
             <!--ng-click="employees.onOpenSearch()"-->
             <button ng-class="{'btn-disabled': employees.dataContext.appInfo.isSynchronized}"
-                    ng-click="employees.onSynchronize()">
+                    ng-click="employees.onSynchronize()"
+                    ng-show="employees.loginService.isAuthenticated">
                 <i class="fa fa-cloud-upload"></i>
+            </button>
+
+            <button ng-click="employees._onGoto('api.login')"
+                    ng-hide="employees.loginService.isAuthenticated">
+                <i class="fa fa-user"></i>
             </button>
 
             <button ng-click="employees._onGoto('api.main.employeeNew')">

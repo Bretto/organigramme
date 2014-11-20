@@ -96,6 +96,8 @@
                 .then(function (res) {
 
                     var user = {name:"Brett Coffin"};//res...
+                    LoginService.isAuthenticated = true;
+                    LoginService.isOnline = true;
 
                     if(DataContext.appInfo){
                         completeLogin(deferred);
@@ -105,7 +107,9 @@
 
                 }, function (err) {
                     LoginService.isAuthenticated = false;
-                    deferred.reject();
+                    LoginService.isOnline = false;
+                    //deferred.reject();
+                    completeLogin(deferred);
                 });
         }
 
@@ -149,7 +153,6 @@
 
         function completeLogin(deferred) {
             console.log('completeLogin');
-            LoginService.isAuthenticated = true;
             $state.go('api.main.employee');
             deferred.resolve();
         }

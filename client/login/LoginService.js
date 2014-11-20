@@ -10,6 +10,7 @@
 
         var self = this;
         self.isAuthenticated = false;
+        self.isOnline = true;
 
         return self;
     }

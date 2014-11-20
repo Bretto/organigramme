@@ -111,7 +111,7 @@
 
             evt.preventDefault();
 
-            if (LoginService.isAuthenticated){
+            if (LoginService.isAuthenticated || !LoginService.isOnline){
                 $urlRouter.sync();
             }else{
                 $state.go('api.login');

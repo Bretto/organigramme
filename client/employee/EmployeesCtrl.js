@@ -29,6 +29,7 @@
 
                 }, function (err) {
                     console.log(err);
+                    vm.loginService.isAuthenticated = false;
                 });
         }
     }

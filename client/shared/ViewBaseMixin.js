@@ -5,7 +5,7 @@
         .service('ViewBaseMixin', ViewBaseMixin);
 
 
-    function ViewBaseMixin($state, $rootScope, $timeout, OdbService, DataContext) {
+    function ViewBaseMixin($state, $rootScope, $timeout, OdbService, DataContext, LoginService) {
         console.log('ViewBaseMixin');
 
 
@@ -16,6 +16,7 @@
 
             vm.dataContext = DataContext;
             vm.manager = DataContext.manager;
+            vm.loginService = LoginService;
 
             vm._timeout = $timeout;
             vm._onGoto = _onGoto;

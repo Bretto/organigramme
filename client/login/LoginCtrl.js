@@ -30,7 +30,7 @@
 
             var user, appData;
             var createUser = "insert into ouser set name = '" + registerUser.username + "', status = 'ACTIVE', password = '" + registerUser.password + "' , roles = [#4:2]";
-            var createAppData = "insert into AppData set data = ''";
+            var createAppData = "insert into AppData set data = 'My Data'";
 
             vm._ws.query(createUser)
                 .then(function (res) {
@@ -44,6 +44,11 @@
                     console.log('onRegister', res);
                     $scope.flip = false;
                 });
+
+
+            //traverse out_ from #5:10
+
+
 
 
             //vm._ws.query(createUser)

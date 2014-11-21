@@ -30,6 +30,7 @@
                 }, function (err) {
                     console.log(err);
                     vm.loginService.isAuthenticated = false;
+                    vm.loginService.isOnline = false;
                 });
         }
     }

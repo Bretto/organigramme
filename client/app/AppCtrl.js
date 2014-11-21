@@ -24,7 +24,7 @@
 
         function onSwipe(dir) {
 
-            if ($state.current.name === "api.employee") {
+            if ($state.current.name === "api.main.employee") {
                 if (dir === 'right') {
                     vm.isOpened = true;
                 } else {

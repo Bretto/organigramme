@@ -62,7 +62,7 @@
  update orole put rules = "database", 2 where name = "visitor"
  update orole put rules = "database.schema", 2 where name = "visitor"
  update orole put rules = "database.command", 2 where name = "visitor"
- update orole put rules = "database.cluster.*", 3 where name = "visitor"
+ update orole put rules = "database.cluster.*", 7 where name = "visitor"
  update orole put rules = "database.class.*", 2 where name = "visitor"
 
  create visitor

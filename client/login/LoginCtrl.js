@@ -18,7 +18,7 @@
         vm.onLogin = onLogin;
         vm.onRegister = onRegister;
 
-        function onLogin(loginUser){
+        function onLogin(loginUser) {
 
             var form = $scope.submitLoginForm;
             // the copy is to associated a new promise with the loginValidation each time
@@ -26,15 +26,34 @@
             form.loginValidation.$setViewValue(angular.copy(loginUser));
         }
 
-        function onRegister(registerUser){
+        function onRegister(registerUser) {
 
-            vm._ws.query("insert into ouser set name = '" + registerUser.username + "', status = 'ACTIVE', password = '" + registerUser.password + "' , roles = [#4:2]")
+            var user, appData;
+            var createUser = "insert into ouser set name = '" + registerUser.username + "', status = 'ACTIVE', password = '" + registerUser.password + "' , roles = [#4:2]";
+            var createAppData = "insert into AppData set data = ''";
+
+            vm._ws.query(createUser)
                 .then(function (res) {
+                    user = res.data.result[0];
+                    return vm._ws.query(createAppData);
+                }).then(function (res) {
+                    appData = res.data.result[0];
+                    var createEdge = "create edge from "+ user['@rid'] +" to "+ appData['@rid'];
+                    return vm._ws.query(createEdge);
+                }).then(function (res) {
                     console.log('onRegister', res);
                     $scope.flip = false;
-                }, function (err) {
-                    console.log(err);
                 });
+
+
+            //vm._ws.query(createUser)
+            //    .then(function (res) {
+            //        console.log('onRegister', res);
+            //
+            //        $scope.flip = false;
+            //    }, function (err) {
+            //        console.log(err);
+            //    });
         }
 
     }
@@ -74,12 +93,12 @@
 
             ngModel.$asyncValidators.loginValidation = isLoggedIn;
 
-            function isLoggedIn(loginUser){
+            function isLoggedIn(loginUser) {
                 var deferred = $q.defer();
 
-                if(loginUser){
+                if (loginUser) {
                     doLogin(loginUser, deferred);
-                }else{
+                } else {
                     deferred.resolve();
                 }
 
@@ -95,13 +114,13 @@
             OdbService.query("select from ouser")
                 .then(function (res) {
 
-                    var user = {name:"Brett Coffin"};//res...
+                    var user = {name: "Brett Coffin"};//res...
                     LoginService.isAuthenticated = true;
                     LoginService.isOnline = true;
 
-                    if(DataContext.appInfo){
+                    if (DataContext.appInfo) {
                         completeLogin(deferred);
-                    }else{
+                    } else {
                         createAppInfo(user, deferred);
                     }
 
@@ -115,9 +134,9 @@
 
         function createAppInfo(user, deferred) {
             console.log('createAppInfo');
-            var appInfo = DataContext.newEntity('AppInfo', {isSynchronized: true, user:user});
+            var appInfo = DataContext.newEntity('AppInfo', {isSynchronized: true, user: user});
             var exportData = DataContext.exportEntities();
-            var data = {data:exportData};
+            var data = {data: exportData};
 
             var command = "insert into AppData content " + JSON.stringify(data);
             OdbService.query(command)
@@ -138,7 +157,7 @@
             DataContext.exportEntities();
 
             var exportData = DataContext.manager.exportEntities();
-            var data = {data:exportData};
+            var data = {data: exportData};
 
             var command = "update AppData content " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
             OdbService.query(command)
@@ -153,8 +172,39 @@
 
         function completeLogin(deferred) {
             console.log('completeLogin');
-            $state.go('api.main.employee');
-            deferred.resolve();
+
+            function doResolve() {
+                $state.go('api.main.employee');
+                deferred.resolve();
+            }
+
+
+            if (LoginService.isOnline) {
+                var command = "select from AppData where @rid= " + DataContext.appInfo.dataId;
+                OdbService.query(command)
+                    .then(function (importData) {
+                        console.log('importData', importData);
+
+                        if(importData.data.result[0].data){
+                            DataContext.manager.importEntities(importData.data.result[0].data);
+                            DataContext.dataContext.importEntities();
+                            DataContext.appInfo = DataContext.getAllEntities('AppInfo')[0];
+                        }
+
+                        doResolve();
+
+                    }, function (err) {
+                        console.log(err);
+                        LoginService.isAuthenticated = false;
+                        LoginService.isOnline = false;
+                        doResolve();
+                    });
+
+            }else{
+                doResolve();
+            }
+
+
         }
     }
 
@@ -170,17 +220,17 @@
 
             ngModel.$asyncValidators.usernameAvailable = isUsernameAvailable;
 
-            function isUsernameAvailable(username){
+            function isUsernameAvailable(username) {
                 var deferred = $q.defer();
 
-                if(username){
+                if (username) {
 
                     OdbService.query("select from OUser where name = '" + username + "'")
                         .then(function (res) {
 
-                            if(res.data.result.length === 0){
+                            if (res.data.result.length === 0) {
                                 deferred.resolve();
-                            }else{
+                            } else {
                                 deferred.reject();
                             }
 
@@ -188,7 +238,7 @@
                             deferred.reject();
                         });
 
-                }else{
+                } else {
                     deferred.resolve();
                 }
 

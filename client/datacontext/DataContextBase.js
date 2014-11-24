@@ -88,21 +88,21 @@
             return entity;
         }
 
-        function _exportEntities() {
+        function _doLocalSave(username) {
 //            console.log('exportEntities');
 //            console.log(manager.getEntities());
 
             manager.acceptChanges();
             var exportData = manager.exportEntities();
 //            console.log(exportData);
-            $window.localStorage.setItem("entityGraph", exportData);
-
+            $window.localStorage.setItem(username, exportData);
+            return exportData;
         }
 
-        function importEntities() {
-//            console.log('importEntities');
+        function doLocalLoad(username) {
+//            console.log('doLocalLoad');
             manager.clear();
-            var importData = $window.localStorage.getItem("entityGraph");
+            var importData = $window.localStorage.getItem(username);
             if (importData){
                 manager.importEntities(importData);
 //                console.log(manager.getEntities());
@@ -141,8 +141,8 @@
             getEntityById: getEntityById,
             newEntity: newEntity,
 
-            _exportEntities: _exportEntities,
-            importEntities: importEntities,
+            _doLocalSave: _doLocalSave,
+            doLocalLoad: doLocalLoad,
 
             manager: manager
         };

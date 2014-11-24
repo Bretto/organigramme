@@ -18,7 +18,8 @@
         function onTagRemove(employeeTagMap) {
             var entity = vm.dataContext.getEntityById('EmployeeTagMap', employeeTagMap.id)[0];
             entity.entityAspect.setDeleted();
-            vm.dataContext.exportEntities();
+            vm.dataContext.appInfo.isSynchronized = false;
+            vm.dataContext.doLocalSave();
         }
     }
 

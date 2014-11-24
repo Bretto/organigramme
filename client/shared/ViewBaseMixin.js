@@ -70,8 +70,7 @@
 
 
             function _onSave(state, params, options) {
-
-                vm.dataContext.exportEntities();
+                vm.dataContext.doLocalSave();
                 vm._onGoto(state, params, options);
             }
 

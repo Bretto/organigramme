@@ -24,7 +24,10 @@
                     dataId: {
                         dataType: DT.String
                     },
-                    user: {
+                    username: {
+                        dataType: DT.String
+                    },
+                    userId: {
                         dataType: DT.String
                     }
                 }

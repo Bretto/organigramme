@@ -16,15 +16,14 @@
 
         function onSynchronize(){
 
-            var exportData = vm.dataContext.exportEntities();
+            var exportData = vm.dataContext.doLocalSave();
             var data = {data:exportData};
 
             var command = "update AppData content " + JSON.stringify(data) + " where @rid=" + vm.dataContext.appInfo.dataId;
             vm._ws.query(command)
                 .then(function (res) {
                     vm.dataContext.appInfo.isSynchronized = true;
-                    // Attention exception calling the Base Class to set isSynchronized = true;
-                    vm.dataContext._exportEntities();
+                    vm.dataContext.doLocalSave();
                     console.log('Synchronized !');
 
                 }, function (err) {

@@ -19,7 +19,8 @@
 
         function onSave(state) {
             vm.dataContext.newEntity('Employee', vm.tempEmployee);
-            vm.dataContext.exportEntities();
+            vm.dataContext.appInfo.isSynchronized = false;
+            vm.dataContext.doLocalSave();
             vm._onGoto(state);
         }
 

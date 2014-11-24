@@ -29,13 +29,13 @@
             //    addFakeData();
             //}
 
-            dataContext.importEntities();
-            var appInfo = DataContext.getAllEntities('AppInfo')[0];
-
-            if(appInfo){
-                console.log('appInfo', appInfo);
-                DataContext.appInfo = appInfo;
-            }
+            //dataContext.importEntities();
+            //var appInfo = DataContext.getAllEntities('AppInfo')[0];
+            //
+            //if(appInfo){
+            //    console.log('appInfo', appInfo);
+            //    DataContext.appInfo = appInfo;
+            //}
 
             deferred.resolve({data:'OK'});
 

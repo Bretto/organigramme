@@ -5,14 +5,19 @@
 
     module.factory('DataContext', function ($rootScope, $location, $q, DataContextBase) {
 
-        //appInfo : {dataId:String , isSynchronized:Boolean, user: Object};
+        //appInfo : {
+        // isSynchronized:Boolean,
+        // userId:String,
+        // username:String,
+        // dataId:String
+        // };
 
         var dataContext = {
             deleteEmployee: deleteEmployee,
             deleteTag: deleteTag,
             getEmployees: getEmployees,
             getTags: getTags,
-            exportEntities: exportEntities,
+            doLocalSave: doLocalSave,
             appInfo: null,
             currentEmployee: null,
             currentTag: null
@@ -20,10 +25,8 @@
 
         dataContext = angular.extend(dataContext, DataContextBase);
 
-        function exportEntities() {
-            console.log("exportEntities appInfo.isSynchronized = false");
-            dataContext.appInfo.isSynchronized = false;
-            dataContext._exportEntities();
+        function doLocalSave() {
+            return dataContext._doLocalSave(dataContext.appInfo.username);
         }
 
 
@@ -63,7 +66,7 @@
                 }
             }
             entity.entityAspect.setDeleted();
-            dataContext.exportEntities();
+            dataContext.doLocalSave();
         }
 
         function deleteTag(entity) {
@@ -77,7 +80,7 @@
                 }
             }
             entity.entityAspect.setDeleted();
-            dataContext.exportEntities();
+            dataContext.doLocalSave();
         }
 
 

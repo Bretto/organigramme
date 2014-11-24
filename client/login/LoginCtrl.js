@@ -28,37 +28,14 @@
 
         function onRegister(registerUser) {
 
-            var user, appData;
-            var createUser = "insert into ouser set name = '" + registerUser.username + "', status = 'ACTIVE', password = '" + registerUser.password + "' , roles = [#4:2]";
-            var createAppData = "insert into AppData set data = 'My Data'";
+            var createUser = "insert into OUser set name = '" + registerUser.username + "', status = 'ACTIVE', " +
+                "password = '" + registerUser.password + "' , roles = [#4:2]";
 
             vm._ws.query(createUser)
                 .then(function (res) {
-                    user = res.data.result[0];
-                    return vm._ws.query(createAppData);
-                }).then(function (res) {
-                    appData = res.data.result[0];
-                    var createEdge = "create edge from "+ user['@rid'] +" to "+ appData['@rid'];
-                    return vm._ws.query(createEdge);
-                }).then(function (res) {
                     console.log('onRegister', res);
                     $scope.flip = false;
                 });
-
-
-            //traverse out_ from #5:10
-
-
-
-
-            //vm._ws.query(createUser)
-            //    .then(function (res) {
-            //        console.log('onRegister', res);
-            //
-            //        $scope.flip = false;
-            //    }, function (err) {
-            //        console.log(err);
-            //    });
         }
 
     }
@@ -116,18 +93,26 @@
             console.log('doLogin');
             OdbService.auth(loginUser.username, loginUser.password);
 
-            OdbService.query("select from ouser")
+            var getUser = "select from OUser where name=" + loginUser.username;
+            OdbService.query(getUser)
                 .then(function (res) {
+                    var data = res.data.result[0];
+                    var user = {userId: data['@rid'], username: data.name};
 
-                    var user = {name: "Brett Coffin"};//res...
                     LoginService.isAuthenticated = true;
                     LoginService.isOnline = true;
 
-                    if (DataContext.appInfo) {
+                    DataContext.doLocalLoad(user.username);
+                    var appInfo = DataContext.getAllEntities('AppInfo')[0];
+
+                    if(appInfo){
+                        console.log('appInfo', appInfo);
+                        DataContext.appInfo = appInfo;
                         completeLogin(deferred);
-                    } else {
-                        createAppInfo(user, deferred);
+                    }else{
+                        getRemoteData(user, deferred);
                     }
+
 
                 }, function (err) {
                     LoginService.isAuthenticated = false;
@@ -137,12 +122,34 @@
                 });
         }
 
+        function getRemoteData(user, deferred) {
+            var command = "select from AppData";
+            OdbService.query(command)
+                .then(function (res) {
+                    console.log('getRemoteData', res);
+                    if (res.data.result.length === 0) {
+                        createAppInfo(user, deferred);
+                    } else {
+                        DataContext.manager.importEntities(res.data.result[0].data);
+                        DataContext.appInfo = DataContext.getAllEntities('AppInfo')[0];
+                        completeLogin(deferred);
+                    }
+                }, function (err) {
+                    console.log(err);
+                });
+        }
+
         function createAppInfo(user, deferred) {
             console.log('createAppInfo');
-            var appInfo = DataContext.newEntity('AppInfo', {isSynchronized: true, user: user});
-            var exportData = DataContext.exportEntities();
+            var appInfo = DataContext.newEntity('AppInfo', {
+                isSynchronized: true,
+                username: user.username,
+                userId: user.userId
+            });
+            DataContext.appInfo = appInfo;
+            var exportData = DataContext.doLocalSave();
             var data = {data: exportData};
-
+            //var command = "insert into AppData (data) values ('" + user.username + "')";
             var command = "insert into AppData content " + JSON.stringify(data);
             OdbService.query(command)
                 .then(function (res) {
@@ -157,14 +164,13 @@
         }
 
         function saveAppInfo(appInfo, deferred) {
-            console.log('saveAppInfo');
+            console.log('saveAppInfo', appInfo.dataId);
             DataContext.appInfo = appInfo;
-            DataContext.exportEntities();
-
-            var exportData = DataContext.manager.exportEntities();
+            var exportData = DataContext.doLocalSave();
             var data = {data: exportData};
 
-            var command = "update AppData content " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
+            data = {data: appInfo.username};
+            var command = "update AppData MERGE " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
             OdbService.query(command)
                 .then(function (res) {
                     console.log('update AppData content', res);
@@ -173,6 +179,8 @@
                     console.log(err);
                     deferred.reject();
                 });
+
+            completeLogin(deferred);
         }
 
         function completeLogin(deferred) {
@@ -183,31 +191,8 @@
                 deferred.resolve();
             }
 
+            doResolve();
 
-            if (LoginService.isOnline) {
-                var command = "select from AppData where @rid= " + DataContext.appInfo.dataId;
-                OdbService.query(command)
-                    .then(function (importData) {
-                        console.log('importData', importData);
-
-                        if(importData.data.result[0].data){
-                            DataContext.manager.importEntities(importData.data.result[0].data);
-                            DataContext.dataContext.importEntities();
-                            DataContext.appInfo = DataContext.getAllEntities('AppInfo')[0];
-                        }
-
-                        doResolve();
-
-                    }, function (err) {
-                        console.log(err);
-                        LoginService.isAuthenticated = false;
-                        LoginService.isOnline = false;
-                        doResolve();
-                    });
-
-            }else{
-                doResolve();
-            }
 
 
         }
@@ -259,3 +244,62 @@
 //_.forEach(angular.module("AppModule")._invokeQueue, function(dep){
 //    console.log(dep[2]);
 //});
+
+//select expand(out('employee_belong_departement')) from #12:72 fetchplan *:1
+
+// TODO should not be able to travers ouser...
+// "traverse out_ from (select from OUser where name=" + loginUser.username + ")"
+
+
+//if (LoginService.isOnline) {
+//    var command = "select from AppData where @rid= " + DataContext.appInfo.dataId;
+//    OdbService.query(command)
+//        .then(function (importData) {
+//            console.log('importData', importData);
+//
+//            if (importData.data.result[0].data) {
+//                DataContext.manager.importEntities(importData.data.result[0].data);
+//                DataContext.appInfo = DataContext.getAllEntities('AppInfo')[0];
+//            }
+//
+//            doResolve();
+//
+//        }, function (err) {
+//            console.log(err);
+//            LoginService.isAuthenticated = false;
+//            LoginService.isOnline = false;
+//            doResolve();
+//        });
+//
+//} else {
+//    doResolve();
+//}
+
+
+//traverse out_ from #5:10
+
+//vm._ws.query(createUser)
+//    .then(function (res) {
+//        user = res.data.result[0];
+//        return vm._ws.query(createAppData);
+//    }).then(function (res) {
+//        appData = res.data.result[0];
+//        var createEdge = "create edge has from "+ user['@rid'] +" to "+ appData['@rid'];
+//        return vm._ws.query(createEdge);
+//    }).then(function (res) {
+//        console.log('onRegister', res);
+//        $scope.flip = false;
+//    });
+
+
+//vm._ws.query(createUser)
+//    .then(function (res) {
+//        console.log('onRegister', res);
+//
+//        $scope.flip = false;
+//    }, function (err) {
+//        console.log(err);
+//    });
+
+
+//update AppData Set data='0000 1111 0000 1111' where @rid=#12:14

@@ -36,7 +36,7 @@
     function Run($rootScope, OdbService) {
         $rootScope.isLoading = true;
         OdbService.connect('Organigramme', 'http://localhost:2480');
-        OdbService.auth('Visitor', 'visitor');
+        OdbService.auth('visitor', 'visitor');
     }
 
     function axBgColor($parse, AppConfig) {

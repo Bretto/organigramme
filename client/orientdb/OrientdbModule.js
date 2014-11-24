@@ -65,9 +65,9 @@
  update orole put rules = "database.cluster.*", 7 where name = "visitor"
  update orole put rules = "database.class.*", 2 where name = "visitor"
 
- create visitor
+ //create visitor
  select from orole
- insert into ouser set name = 'Visitor', status = 'ACTIVE', password = 'visitor', roles = [#4:3]
+ insert into ouser set name = 'visitor', status = 'ACTIVE', password = 'visitor', roles = [#4:3]
 
 
  connect remote:localhost/Organigramme Visitor visitor
@@ -75,6 +75,10 @@
  CREATE CLASS AppData extends V
  CREATE PROPERTY AppData.data STRING
 
+ create class has extends E
 
+ delete from ouser where @rid=#5:30
+ DELETE VERTEX #12:24
 
 */
+

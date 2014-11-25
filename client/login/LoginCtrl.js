@@ -91,6 +91,15 @@
 
         function doLogin(loginUser, deferred) {
             console.log('doLogin');
+
+            DataContext.doLocalLoad(loginUser.username);
+            var appInfo = DataContext.getAllEntities('AppInfo')[0];
+
+            if(appInfo) {
+                DataContext.appInfo = appInfo;
+            }
+
+
             OdbService.auth(loginUser.username, loginUser.password);
 
             var getUser = "select from OUser where name=" + loginUser.username;
@@ -102,12 +111,7 @@
                     LoginService.isAuthenticated = true;
                     LoginService.isOnline = true;
 
-                    DataContext.doLocalLoad(user.username);
-                    var appInfo = DataContext.getAllEntities('AppInfo')[0];
-
                     if(appInfo){
-                        console.log('appInfo', appInfo);
-                        DataContext.appInfo = appInfo;
                         completeLogin(deferred);
                     }else{
                         getRemoteData(user, deferred);
@@ -115,6 +119,7 @@
 
 
                 }, function (err) {
+
                     LoginService.isAuthenticated = false;
                     LoginService.isOnline = false;
                     //deferred.reject();

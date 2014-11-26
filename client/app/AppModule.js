@@ -4,6 +4,28 @@
 //    . ~/setProxyDTSI
 // http://192.168.106.48/organigramme/
 
+
+/*
+
+    TODO Bugs
+
+
+    TODO Mobile
+    AppCache
+    Error Alert Popup
+    Pre-loader
+    App icon
+    Save images to remote
+    Swipe lef/right through profiles subsets
+
+    TODO Desktop
+    Create a Graph representation of the tags with D&D
+
+
+*/
+
+
+
     var modules = [
         'LoggerModule',
         'OrientdbModule',

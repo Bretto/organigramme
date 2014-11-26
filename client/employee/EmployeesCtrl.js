@@ -13,6 +13,12 @@
         ViewBaseMixin.call(this, {name: 'EmployeesCtrl'});
         var vm = this;
         vm.onSynchronize = onSynchronize;
+        vm.onGoto = onGoto;
+
+        function onGoto(state, params, options){
+            $scope.shared.isOpened = false;
+            vm._onGoto(state, params, options);
+        }
 
         function onSynchronize(){
 

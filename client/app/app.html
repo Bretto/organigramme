@@ -24,22 +24,21 @@
                     ng-click="app.onTagSelect(tag)"
                     ng-class="{'item-disabled': tag.isDisabled}"
                     ng-repeat="tag in app.getTags()
-                | filter:app.search
-                | orderBy:'name'">
+                    | filter:app.search
+                    | orderBy:'name'">
                     <a>{{tag.name}}</a>
                 </li>
             </ul>
         </section>
 
-
     </section>
 
 
-    <section layout="vertical" flex class="view employee-grid" ng-class="{'is-opened': app.isOpened}">
+    <section layout="vertical" flex class="view employee-grid" ng-class="{'is-opened': shared.isOpened}">
 
         <section layout="vertical" flex>
             <ul class="employee-tile-wrap" layout="horizontal">
-                <li ng-click="app._onGoto('api.main.employeeId', {employeeId: employee.id})"
+                <li ng-click="app.onGoto('api.main.employeeId', {employeeId: employee.id})"
                     ng-class="{active: app._isEmpActive(employee)}"
                     class="employee-tile" ax-bg-color="employee"
                     ng-repeat="employee in app.getEmployees(app.searchIds) | limitTo: 100">

@@ -1,9 +1,9 @@
 <div layout="vertical" ng-controller="EmployeesCtrl as employees">
 
     <section layout="vertical" flex class="view employee fix"
-             ng-class="{'is-opened': app.isOpened}">
+             ng-class="{'is-opened': shared.isOpened}">
         <header layout="horizontal" layout-align="space-between end">
-            <button class="" ng-click="employees._onGoto('api.main.tag')">
+            <button class="" ng-click="employees.onGoto('api.main.tag')">
                 <i class="fa fa-tags"></i>
             </button>
             <!--ng-click="employees.onOpenSearch()"-->

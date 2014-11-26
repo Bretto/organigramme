@@ -21,20 +21,28 @@
         vm.onTagDelete = onTagDelete;
         vm.onOpenSearch = onOpenSearch;
         vm.onSwipe = onSwipe;
+        vm.onGoto = onGoto;
+
+        $scope.shared  = {isOpened: false};
 
         function onSwipe(dir) {
 
             if ($state.current.name === "api.main.employee") {
                 if (dir === 'right') {
-                    vm.isOpened = true;
+                    $scope.shared.isOpened = true;
                 } else {
-                    vm.isOpened = false;
+                    $scope.shared.isOpened = false;
                 }
             }
         }
 
+        function onGoto(state, params, options){
+            $scope.shared.isOpened = false;
+            vm._onGoto(state, params, options);
+        }
+
         function onOpenSearch() {
-            vm.isOpened = !vm.isOpened;
+            $scope.shared.isOpened = !$scope.shared.isOpened;
         }
 
         function onTagSelect(tag) {

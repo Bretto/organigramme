@@ -59,7 +59,7 @@
             db.transaction(
                 function (transaction) {
                     transaction.executeSql(
-                            'CREATE TABLE IF NOT EXISTS Picture2' +
+                            'CREATE TABLE IF NOT EXISTS Picture' +
                             '(' +
                             'id VARCHAR,' +
                             'data BLOB' +

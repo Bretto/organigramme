@@ -109,7 +109,7 @@
                     reader.readAsDataURL(file);
 
                     reader.onload = function (e) {
-//                        entity = $parse(attrs.cameraBtn)(scope);
+
                         entity.picture = id;
                         var data = e.target.result;
 
@@ -179,7 +179,7 @@
                         }
 
                         tx.executeSql(
-                            "SELECT data FROM Picture2 WHERE id=? ",
+                            "SELECT data FROM Picture WHERE id=? ",
                             [pictureId],
                             function (tx, results) {
                                 var len = results.rows.length, i;

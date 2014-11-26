@@ -137,6 +137,8 @@
                     } else {
                         DataContext.manager.importEntities(res.data.result[0].data);
                         DataContext.appInfo = DataContext.getAllEntities('AppInfo')[0];
+                        DataContext.appInfo.isSynchronized = true;
+                        DataContext.doLocalSave();
                         completeLogin(deferred);
                     }
                 }, function (err) {

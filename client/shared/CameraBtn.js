@@ -71,11 +71,14 @@
             }
 
             function saveData(id, data) {
+
+                var cmd = "INSERT OR REPLACE INTO Picture (id, saved, data) VALUES (?, ?, ?)";
+
                 AppDB.transaction(
                     function (tx) {
                         tx.executeSql(
-                            "INSERT INTO Picture2 (id, data) VALUES (?, ?)",
-                            [id, data],
+                            cmd,
+                            [id, 0, data],
                             function (tx, result) {
                                 console.log("Query Success");
                             },
@@ -99,23 +102,26 @@
                 if (event.target.files.length === 1 &&
                     event.target.files[0].type.indexOf("image/") === 0) {
 
+                    entity.picture = '';//to force a binding refresh in axiLoadPicture
                     entity.isProcessingImage = true;
                     $rootScope.$digest();
 
                     var reader = new FileReader();
                     var file = event.target.files[0];
                     var id = URL.createObjectURL(file);
+                    var tempId = 'tempPic';
                     URL.revokeObjectURL(id);
                     reader.readAsDataURL(file);
 
                     reader.onload = function (e) {
 
-                        entity.picture = id;
+                        entity.picture = tempId;
                         var data = e.target.result;
 
                         processData(data, function (data) {
                             $timeout(function () {
-                                saveData(id, data);
+                                saveData(tempId, data);
+                                scope.currentPictureSelected = {id:id, data:data};
                                 entity.isProcessingImage = false;
                                 $rootScope.$digest();
                             }, 2000);
@@ -168,7 +174,6 @@
 
                 AppDB.transaction(
                     function (tx) {
-
 
                         if (picturesCache.get(pictureId)) {
                             console.log('from Cache');

@@ -62,7 +62,9 @@
                             'CREATE TABLE IF NOT EXISTS Picture' +
                             '(' +
                             'id VARCHAR,' +
-                            'data BLOB' +
+                            'saved INTEGER,' +
+                            'data BLOB,' +
+                            'PRIMARY KEY (id)' +
                             ');'
                     );
                 });

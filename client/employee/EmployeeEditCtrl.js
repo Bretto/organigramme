@@ -5,11 +5,11 @@
         .controller('EmployeeEditCtrl', EmployeeEditCtrl);
 
 
-    function EmployeeEditCtrl($scope, ViewBaseMixin, EmployeeBaseMixin, AppDB) {
+    function EmployeeEditCtrl($scope, ViewBaseMixin, EmployeeBaseMixin) {
         console.log('EmployeeEditCtrl');
 
-        ViewBaseMixin.call(this, {name: 'EmployeeEditCtrl', scope:$scope});
-        EmployeeBaseMixin.call(this, {name: 'EmployeeEditCtrl', scope:$scope});
+        ViewBaseMixin.call(this, {name: 'EmployeeEditCtrl', scope: $scope});
+        EmployeeBaseMixin.call(this, {name: 'EmployeeEditCtrl', scope: $scope});
 
         var vm = this;
 
@@ -28,13 +28,28 @@
         }
 
         function onSave(state, params, options) {
-            if($scope.currentPictureSelected){
-                var id = vm.dataContext.appInfo.username +'_'+$scope.currentPictureSelected.id;
-                var data = $scope.currentPictureSelected.data;
-                localSaveImageData(id,data);
+
+            vm.dataContext.appInfo.isSynchronized = false;
+
+            if ($scope.currentPictureSelected) {
+
+                var picture = {
+                    id: vm.dataContext.appInfo.username + '_' + $scope.currentPictureSelected.id,
+                    data: $scope.currentPictureSelected.data
+                };
+
+                vm.localSaveImageData(picture.id, picture.data)
+                    .then(function () {
+                        vm.remoteSaveImageData(picture);
+                        vm.currentEmployee.picture = picture.id;
+                        vm._onSave(state, params, options);
+                    });
+
+            } else {
+                vm._onSave(state, params, options);
             }
 
-            vm._onSave(state, params, options);
+
         }
 
         function onBack() {
@@ -42,33 +57,14 @@
                 vm.currentEmployee.entityAspect.rejectChanges();
             }
 
-            vm._onGoto('api.main.employeeId', {employeeId: vm.currentEmployee.id, isBack:true});
+            vm._onGoto('api.main.employeeId', {employeeId: vm.currentEmployee.id, isBack: true});
         }
 
-        function localSaveImageData(id, data) {
-            AppDB.transaction(
-                function (tx) {
-                    tx.executeSql(
-                        "INSERT OR REPLACE INTO Picture (id, saved, data) VALUES (?, ?, ?)",
-                        [id, 0, data],
-                        function (tx, result) {
-                            console.log("Query Success");
-                        },
-                        function (tx, error) {
-                            console.log("Query Error: " + error.message);
-                        }
-                    );
-                },
-                function (error) {
-                    console.log("Transaction Error: " + error.message);
-                },
-                function () {
-                    console.log("Transaction Success");
-                }
-            );
-        }
+
+
 
 
     }
 
-})();
+})
+();

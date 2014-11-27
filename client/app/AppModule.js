@@ -9,14 +9,15 @@
 
     TODO Bugs
 
-
     TODO Mobile
     AppCache
     Error Alert Popup
     Pre-loader
     App icon
-    Save images to remote
     Swipe lef/right through profiles subsets
+    Delete images from db based from a 2 on the saved local db
+    onSynchronize is not waiting for the images to be saved to show the saved status...
+    There is no edges between AppData and the Images
 
     TODO Desktop
     Create a Graph representation of the tags with D&D

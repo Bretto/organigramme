@@ -18,6 +18,29 @@
         vm.takePicture = takePicture;
 
         function onSave(state) {
+
+            vm.dataContext.appInfo.isSynchronized = false;
+
+            if ($scope.currentPictureSelected) {
+
+                var picture = {
+                    id: vm.dataContext.appInfo.username + '_' + $scope.currentPictureSelected.id,
+                    data: $scope.currentPictureSelected.data
+                };
+
+                vm.localSaveImageData(picture.id, picture.data)
+                    .then(function () {
+                        vm.remoteSaveImageData(picture);
+                        vm.tempEmployee.picture = picture.id;
+                        saveComplete(state);
+                    });
+
+            } else {
+                saveComplete(state);
+            }
+        }
+
+        function saveComplete(state){
             vm.dataContext.newEntity('Employee', vm.tempEmployee);
             vm.dataContext.appInfo.isSynchronized = false;
             vm.dataContext.doLocalSave();

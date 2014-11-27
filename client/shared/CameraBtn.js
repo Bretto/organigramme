@@ -108,7 +108,9 @@
 
                     var reader = new FileReader();
                     var file = event.target.files[0];
-                    var id = URL.createObjectURL(file);
+                    var id = (URL.createObjectURL(file));
+                    id = id.substring((id.lastIndexOf("/")+1));
+
                     var tempId = 'tempPic';
                     URL.revokeObjectURL(id);
                     reader.readAsDataURL(file);

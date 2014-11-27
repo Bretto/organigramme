@@ -80,5 +80,7 @@
  delete from ouser where @rid=#5:30
  DELETE VERTEX #12:24
 
+ var command = "UPDATE Picture CONTENT " + JSON.stringify(picture) + " UPSERT where id='" + picture.id +"'";
+
 */
 

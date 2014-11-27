@@ -6,8 +6,9 @@
             <button class="" ng-click="employees.onGoto('api.main.tag')">
                 <i class="fa fa-tags"></i>
             </button>
-            <!--ng-click="employees.onOpenSearch()"-->
-            <button ng-class="{'btn-disabled': employees.dataContext.appInfo.isSynchronized}"
+
+            <!--ng-class="{'btn-disabled': employees.dataContext.appInfo.isSynchronized}" -->
+            <button
                     ng-click="employees.onSynchronize()"
                     ng-show="employees.loginService.isAuthenticated">
                 <i class="fa fa-cloud-upload"></i>

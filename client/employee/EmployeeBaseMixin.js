@@ -20,7 +20,7 @@
             vm.isProcessingImage = isProcessingImage;
             vm.remoteSaveImageData = remoteSaveImageData;
             vm.localSaveImageData = localSaveImageData;
-            vm.updateImageData = updateImageData;
+            vm.updateLocalImageData = updateLocalImageData;
 
 
             function isProcessingImage(entity) {
@@ -40,7 +40,7 @@
                 return OdbService.query(cmd)
                     .then(function (res) {
                         console.log('remoteSaveImageData success', res);
-                        vm.updateImageData(picture.id);
+                        vm.updateLocalImageData(picture.id);
                     }, function () {
                         console.log('remoteSaveImageData fail');
                     });
@@ -75,7 +75,7 @@
                 return deferred.promise;
             }
 
-            function updateImageData(id) {
+            function updateLocalImageData(id) {
                 var deferred = $q.defer();
 
                 AppDB.transaction(

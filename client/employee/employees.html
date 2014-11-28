@@ -7,8 +7,8 @@
                 <i class="fa fa-tags"></i>
             </button>
 
-            <!--ng-class="{'btn-disabled': employees.dataContext.appInfo.isSynchronized}" -->
-            <button
+
+            <button ng-class="{'btn-disabled': employees.dataContext.appInfo.isSynchronized}"
                     ng-click="employees.onSynchronize()"
                     ng-show="employees.loginService.isAuthenticated">
                 <i class="fa fa-cloud-upload"></i>

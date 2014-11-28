@@ -40,11 +40,12 @@
                 return OdbService.query(cmd)
                     .then(function (res) {
                         console.log('remoteSaveImageData success', res);
-                        vm.updateLocalImageData(picture.id);
+                        return vm.updateLocalImageData(picture.id);
                     }, function () {
                         console.log('remoteSaveImageData fail');
                     });
             }
+
 
             function localSaveImageData(id, data) {
                 var deferred = $q.defer();
@@ -97,7 +98,7 @@
                         console.log("Transaction Error: " + error.message);
                     },
                     function () {
-                        console.log("Transaction Success");
+                        //console.log("Transaction Success");
                     }
                 );
 

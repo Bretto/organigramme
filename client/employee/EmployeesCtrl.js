@@ -79,63 +79,67 @@
         }
 
 
-        //function onSynchronize() {
-        //
-        //    remoteSaveAppData()
-        //        .then(function () {
-        //            console.log('getNonSavedImages');
-        //            return getNonSavedImages();
-        //        })
-        //        .then(function (res) {
-        //            console.log('batch remoteSaveImageData');
-        //
-        //            //return $q.all(res)
-        //            //_.forEach(res, function (image) {
-        //            //    vm.remoteSaveImageData(image);
-        //            //});
-        //        });
-        //
-        //    console.log('Synchronized !');
-        //}
-
         function onSynchronize() {
 
             remoteSaveAppData()
                 .then(function () {
                     console.log('getNonSavedImages');
-                    return getFakeNonSavedImages();
+                    return getNonSavedImages();
                 })
-                .then(function (rows) {
+                .then(function (res) {
                     console.log('batch remoteSaveImageData');
 
                     var promises = [];
-
-                    for (var i = 1; i < 10; i++) {
-                       promises.push(closureWrap(i)());
-                    }
+                    _.forEach(res, function (image) {
+                        promises.push(vm.remoteSaveImageData(image));
+                    });
 
                     return $q.all(promises);
                 })
                 .then(function () {
-                   console.log('complete');
+                    console.log('Synchronized !');
                 });
 
-            console.log('Synchronized !');
         }
 
-
-        function closureWrap(idx){
-            return function traceIdx(){
-                var deferred = $q.defer();
-                $timeout(function(){
-                    console.log(idx);
-                    deferred.resolve();
-                }, Math.random()*1000);
-                return deferred.promise;
-            };
-        }
-
-
+        //function onSynchronize() {
+        //
+        //    remoteSaveAppData()
+        //        .then(function () {
+        //            console.log('getNonSavedImages');
+        //            return getFakeNonSavedImages();
+        //        })
+        //        .then(function (rows) {
+        //            console.log('batch remoteSaveImageData');
+        //
+        //            var promises = [];
+        //
+        //            for (var i = 1; i < 10; i++) {
+        //               promises.push(closureWrap(i)());
+        //            }
+        //
+        //            return $q.all(promises);
+        //        })
+        //        .then(function () {
+        //           console.log('complete');
+        //        });
+        //
+        //    console.log('Synchronized !');
+        //}
+        //
+        //
+        //function closureWrap(idx){
+        //    return function traceIdx(){
+        //        var deferred = $q.defer();
+        //        $timeout(function(){
+        //            console.log(idx);
+        //            deferred.resolve();
+        //        }, Math.random()*1000);
+        //        return deferred.promise;
+        //    };
+        //}
+        //
+        //
         function getFakeNonSavedImages() {
             var deferred = $q.defer();
 

@@ -12,6 +12,7 @@
 
         ViewBaseMixin.call(this, {name: 'EmployeesCtrl'});
         EmployeeBaseMixin.call(this, {name: 'EmployeesCtrl', scope: $scope});
+
         var vm = this;
         vm.onSynchronize = onSynchronize;
         vm.onGoto = onGoto;
@@ -140,20 +141,20 @@
         //}
         //
         //
-        function getFakeNonSavedImages() {
-            var deferred = $q.defer();
-
-            $timeout(function(){
-                var rows = [];
-                for (var i = 1; i < 10; i++) {
-                    var row = {id:i, data:'data '+i};
-                    rows.push(row);
-                }
-                deferred.resolve(rows);
-            },1000);
-
-            return deferred.promise;
-        }
+        //function getFakeNonSavedImages() {
+        //    var deferred = $q.defer();
+        //
+        //    $timeout(function(){
+        //        var rows = [];
+        //        for (var i = 1; i < 10; i++) {
+        //            var row = {id:i, data:'data '+i};
+        //            rows.push(row);
+        //        }
+        //        deferred.resolve(rows);
+        //    },1000);
+        //
+        //    return deferred.promise;
+        //}
 
 
 

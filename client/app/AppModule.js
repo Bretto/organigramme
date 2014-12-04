@@ -17,6 +17,8 @@
     Swipe lef/right through profiles subsets
     Delete images from db based from a 2 on the saved local db
 
+    find how to give a name to the instance of orientdb to stop and start it withou the id...
+
     TODO Desktop
     Create a Graph representation of the tags with D&D
 

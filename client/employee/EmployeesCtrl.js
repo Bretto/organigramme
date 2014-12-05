@@ -22,70 +22,15 @@
             vm._onGoto(state, params, options);
         }
 
-        function remoteSaveAppData() {
 
-            var deferred = $q.defer();
-            var exportData = vm.dataContext.doLocalSave();
-            var data = {data: exportData};
-
-            var command = "update AppData MERGE " + JSON.stringify(data) + " where @rid=" + vm.dataContext.appInfo.dataId;
-            vm._ws.query(command)
-                .then(function (res) {
-                    vm.dataContext.appInfo.isSynchronized = true;
-                    vm.dataContext.doLocalSave();
-                    deferred.resolve();
-
-                }, function (err) {
-                    console.log(err);
-                    vm.loginService.isAuthenticated = false;
-                    vm.loginService.isOnline = false;
-                    deferred.reject();
-                });
-
-            return deferred.promise;
-        }
-
-
-        function getNonSavedImages() {
-            var deferred = $q.defer();
-
-            AppDB.transaction(
-                function (tx) {
-                    tx.executeSql(
-                        "SELECT * FROM Picture WHERE saved= ? AND id != 'tempPic'",
-                        [0],
-                        function (tx, results) {
-                            var rows = [];
-                            for (var i = 0; i < results.rows.length; i++) {
-                                var row = results.rows.item(i);
-                                rows.push(row);
-                            }
-                            deferred.resolve(rows);
-                        },
-                        function (tx, error) {
-                            console.log("Query Error: " + error.message);
-                            deferred.reject();
-                        }
-                    );
-                },
-                function (error) {
-                    console.log("Transaction Error: " + error.message);
-                },
-                function () {
-                    console.log("Transaction Success");
-                }
-            );
-
-            return deferred.promise;
-        }
 
 
         function onSynchronize() {
 
-            remoteSaveAppData()
+            vm.dataContext.remoteSaveAppData()
                 .then(function () {
                     console.log('getNonSavedImages');
-                    return getNonSavedImages();
+                    return vm.dataContext.getNonSavedImages();
                 })
                 .then(function (res) {
                     console.log('batch remoteSaveImageData');

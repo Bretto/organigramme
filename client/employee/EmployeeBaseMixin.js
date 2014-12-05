@@ -19,7 +19,6 @@
             vm.isSaveDisabled = isSaveDisabled;
             vm.isProcessingImage = isProcessingImage;
             vm.remoteSaveImageData = remoteSaveImageData;
-            vm.localSaveImageData = localSaveImageData;
             vm.updateLocalImageData = updateLocalImageData;
 
 
@@ -47,34 +46,7 @@
             }
 
 
-            function localSaveImageData(id, data) {
-                var deferred = $q.defer();
 
-                AppDB.transaction(
-                    function (tx) {
-                        tx.executeSql(
-                            "INSERT OR REPLACE INTO Picture (id, saved, data) VALUES (?, ?, ?)",
-                            [id, 0, data],
-                            function (tx, result) {
-                                console.log("Query Success");
-                                deferred.resolve();
-                            },
-                            function (tx, error) {
-                                console.log("Query Error: " + error.message);
-                                deferred.reject();
-                            }
-                        );
-                    },
-                    function (error) {
-                        console.log("Transaction Error: " + error.message);
-                    },
-                    function () {
-                        console.log("Transaction Success");
-                    }
-                );
-
-                return deferred.promise;
-            }
 
             function updateLocalImageData(id) {
                 var deferred = $q.defer();

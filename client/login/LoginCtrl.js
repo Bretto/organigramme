@@ -127,11 +127,38 @@
                 });
         }
 
-        function getRemoteData(user, deferred) {
-            var command = "select from AppData";
-            OdbService.query(command)
+
+
+
+        function getRemotePictures(){
+            var command = "select from Picture";
+            return OdbService.query(command)
                 .then(function (res) {
-                    console.log('getRemoteData', res);
+                    console.log('getRemotePictures', res);
+
+                    _.forEach(res.data.result, function(picture){
+                        DataContext.localSaveImageData(picture.id, picture.data);
+                    });
+
+
+                }, function (err) {
+                    console.log(err);
+                });
+        }
+
+        function getRemoteAppData(){
+            var command = "select from AppData";
+            return OdbService.query(command);
+        }
+
+
+        function getRemoteData(user, deferred) {
+            getRemotePictures()
+                .then(function(){
+                    return getRemoteAppData();
+                })
+                .then(function (res) {
+                    console.log('getRemoteAppData', res);
                     if (res.data.result.length === 0) {
                         createAppInfo(user, deferred);
                     } else {
@@ -144,7 +171,10 @@
                 }, function (err) {
                     console.log(err);
                 });
+
         }
+
+
 
         function createAppInfo(user, deferred) {
             console.log('createAppInfo');
@@ -177,7 +207,8 @@
             var data = {data: exportData};
 
             data = {data: appInfo.username};
-            var command = "update AppData MERGE " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
+            //var command = "update AppData MERGE " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
+            var command = "update AppData set data='" + exportData + "' return after @this where @rid=" + appInfo.dataId;
             OdbService.query(command)
                 .then(function (res) {
                     console.log('update AppData content', res);

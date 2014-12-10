@@ -261,6 +261,52 @@
 
  CREATE INDEX User.id UNIQUE
 
+
+ //select expand(out('employee_belong_departement')) from #12:72 fetchplan *:1
+
+ //var employees = gdb.command('sql', 'select * from Employee', []);
+ //var departements = gdb.command('sql', 'select * from Departement', []);
+ //
+ //for (var i = 0; i < employees.length; i++) {
+ //    var emp = employees[i];
+ //    var departement = departements[Math.round(Math.random()*(departements.length - 1))];
+ //    var e = "create edge employee_belong_dpartement from #" + emp.getIdentity() + " to " +  department.getIdentity();
+ //    gdb.command('sql',e, []);
+ //}
+ //
+ //gdb.commit();
+ //
+ //
+ //    var employees = gdb.command('sql', 'select * from Employee', []);
+ //    var departments = gdb.command('sql', 'select * from Department', []);
+ //
+ //    for (var i = 0; i < employees.length; i++) {
+ //        var emp = employees[i];
+ //        var department = departements[Math.round(Math.random()*(departements.length - 1))];
+ //        var e = "create edge employee_belong_dpartement from #" + emp.getIdentity() + " to " +  department.getIdentity();
+ //        gdb.command('sql',e, []);
+ //    }
+ //
+ //    gdb.commit();
+
+ //SELECT out('employee_belong_departement') FROM Employee WHERE
+
+
+ //[
+ //    {
+ //        "@type": "d",
+ //        "@rid": "#12:72",
+ //        "@version": 8,
+ //        "@class": "Employee",
+ //        "nom": "Coffin",
+ //        "prenom": "Brett",
+ //        "out_employee_belong_departement": [
+ //            "#13:11"
+ //        ],
+ //        "@fieldTypes": "out_employee_belong_departement=g"
+ //    }
+ //]
+
 */
 
 

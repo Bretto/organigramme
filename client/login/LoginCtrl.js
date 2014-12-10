@@ -342,4 +342,3 @@
 
 //update AppData Set data='0000 1111 0000 1111' where @rid=#12:14
 
-

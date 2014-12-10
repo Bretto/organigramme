@@ -52,6 +52,8 @@
 
 /*
 
+ https://oss.sonatype.org/content/repositories/snapshots/com/orientechnologies/orientdb-community/2.0-SNAPSHOT/
+
  connect remote:localhost/Organigramme brett brett
 
  alter class V superclass orestricted
@@ -78,9 +80,12 @@
  create class has extends E
 
  delete from ouser where @rid=#5:30
+ delete from (select from OUser)
  DELETE VERTEX #12:24
 
  var command = "UPDATE Picture CONTENT " + JSON.stringify(picture) + " UPSERT where id='" + picture.id +"'";
+
+ CREATE INDEX User.id UNIQUE
 
 */
 

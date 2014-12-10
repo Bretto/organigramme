@@ -7,8 +7,8 @@
 
         //appInfo : {
         // isSynchronized:Boolean,
-        // userId:String,
         // username:String,
+        // userId:String,
         // dataId:String
         // };
 

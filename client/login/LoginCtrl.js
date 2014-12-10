@@ -28,6 +28,7 @@
 
         function onRegister(registerUser) {
 
+            //TODO this is fuckedup security... #4:2...
             var createUser = "insert into OUser set name = '" + registerUser.username + "', status = 'ACTIVE', " +
                 "password = '" + registerUser.password + "' , roles = [#4:2]";
 
@@ -102,11 +103,15 @@
 
             OdbService.auth(loginUser.username, loginUser.password);
 
-            var getUser = "select from OUser where name=" + loginUser.username;
+            var sha256Psw = "{SHA-256}" + OdbService.hash(loginUser.password).toUpperCase();
+            var getUser = "select from OUser where name='" + loginUser.username + "' AND password ='"+ sha256Psw +"'";
+
             OdbService.query(getUser)
                 .then(function (res) {
+
                     var data = res.data.result[0];
-                    var user = {userId: data['@rid'], username: data.name};
+                    //var user = {userId: data['@rid'], username: data.name};
+                    var user = {username: data.name, getUser:getUser};
 
                     LoginService.isAuthenticated = true;
                     LoginService.isOnline = true;
@@ -117,12 +122,10 @@
                         getRemoteData(user, deferred);
                     }
 
-
                 }, function (err) {
 
                     LoginService.isAuthenticated = false;
                     LoginService.isOnline = false;
-                    //deferred.reject();
                     completeLogin(deferred);
                 });
         }
@@ -180,8 +183,8 @@
             console.log('createAppInfo');
             var appInfo = DataContext.newEntity('AppInfo', {
                 isSynchronized: true,
-                username: user.username,
-                userId: user.userId
+                username: user.username
+                //userId: user.userId
             });
             DataContext.appInfo = appInfo;
             var exportData = DataContext.doLocalSave();
@@ -190,9 +193,11 @@
             var command = "insert into AppData content " + JSON.stringify(data);
             OdbService.query(command)
                 .then(function (res) {
-                    var dataId = res.data.result[0]['@rid'];
-                    appInfo.dataId = dataId;
-                    saveAppInfo(appInfo, deferred);
+                    //var dataId = res.data.result[0]['@rid'];
+                    //appInfo.dataId = dataId;
+
+                    //saveAppInfo(appInfo, deferred);
+
                 }, function (err) {
                     console.log(err);
                     deferred.reject();
@@ -204,11 +209,15 @@
             console.log('saveAppInfo', appInfo.dataId);
             DataContext.appInfo = appInfo;
             var exportData = DataContext.doLocalSave();
-            var data = {data: exportData};
 
-            data = {data: appInfo.username};
+            //var data = {data: exportData};
+            //data = {data: appInfo.username};
             //var command = "update AppData MERGE " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
+
+            //var command = "update AppData set data='" + exportData + "' return after @this where @rid=" + appInfo.dataId;
+
             var command = "update AppData set data='" + exportData + "' return after @this where @rid=" + appInfo.dataId;
+
             OdbService.query(command)
                 .then(function (res) {
                     console.log('update AppData content', res);

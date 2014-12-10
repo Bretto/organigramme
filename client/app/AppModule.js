@@ -2,12 +2,13 @@
     "use strict";
 
 //    . ~/setProxyDTSI
-// http://192.168.106.48/organigramme/
+//    http://192.168.106.48/organigramme/
 
 
 /*
 
     TODO Bugs
+    Use the User Password instead of @RID
 
     TODO Mobile
     AppCache
@@ -17,6 +18,8 @@
     Swipe lef/right through profiles subsets
     Delete images from db based from a 2 on the saved local db
 
+
+    TODO Docker
     find how to give a name to the instance of orientdb to stop and start it withou the id...
 
     TODO Desktop

@@ -190,7 +190,10 @@
             var exportData = DataContext.doLocalSave();
             var data = {data: exportData};
             //var command = "insert into AppData (data) values ('" + user.username + "')";
-            var command = "insert into AppData content " + JSON.stringify(data);
+            //var command = "insert into AppData content " + JSON.stringify(data);
+
+            var command = "insert into AppData (data, user) values('" + 'test' +  "' , select @rid from OUser where name='" + user.username + "')";
+
             OdbService.query(command)
                 .then(function (res) {
                     //var dataId = res.data.result[0]['@rid'];

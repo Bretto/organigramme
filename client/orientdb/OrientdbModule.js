@@ -307,6 +307,8 @@
  //    }
  //]
 
+ insert into toto (contenu,user) values ('test',select @rid from OUser where name='chris')
+
 */
 
 

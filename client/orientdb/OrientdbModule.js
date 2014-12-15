@@ -19,6 +19,13 @@
         self.auth = auth;
         self.connect = connect;
         self.hash = Sha256.hash;
+        self.createNewUser = createNewUser;
+        self.isUsernameAvailable = isUsernameAvailable;
+        self.insertAppData = insertAppData;
+        self.updateAppData = updateAppData;
+        self.selectAppData = selectAppData;
+        self.selectPictures = selectPictures;
+        self.getUser = getUser;
 
         function connect(dbName, uri) {
             self.dbName = dbName;
@@ -40,6 +47,46 @@
             var q = str;
             return $http.post(url, q);
         }
+
+        function createNewUser(username, password){
+
+            //TODO this is fuckedup security... #4:2...
+            var createUser = "insert into OUser set name = '" + username + "', status = 'ACTIVE', " +
+                "password = '" + password + "' , roles = [#4:2]";
+
+            return createUser;
+        }
+
+        function isUsernameAvailable(username){
+            return "select from OUser where name = '" + username + "'";
+        }
+
+        function updateAppData(exportData){
+            //var command = "update AppData MERGE " + JSON.stringify(data) + " where @rid=" + appInfo.dataId;
+            //var command = "update AppData set data='" + exportData + "' return after @this where @rid=" + appInfo.dataId;
+            return "update AppData set data=" + JSON.stringify(exportData);
+        }
+
+        function insertAppData(exportData){
+            //var command = "insert into AppData content " + JSON.stringify(data);
+            //insert into toto SET data = 'data test', user = (select from OUser where name='chris')
+            return "insert into AppData (data) values (" + JSON.stringify(exportData) + ")";
+        }
+
+        function selectPictures(){
+            return "select from Picture";
+        }
+
+        function selectAppData(){
+            return "select from AppData";
+        }
+
+        function getUser(username, password){
+            var sha256Psw = "{SHA-256}" + self.hash(password).toUpperCase();
+            return "select from OUser where name='" + username + "' AND password ='"+ sha256Psw +"'";
+        }
+
+
 
         return self;
     }
@@ -227,15 +274,25 @@
  alter class V superclass orestricted
  alter class E superclass orestricted
 
- create visitor role
+
  insert into orole set name = 'visitor', mode = 0
  update orole put rules = "database", 2 where name = "visitor"
  update orole put rules = "database.schema", 2 where name = "visitor"
  update orole put rules = "database.command", 2 where name = "visitor"
  update orole put rules = "database.cluster.*", 7 where name = "visitor"
+ update orole put rules = "database.class.*", 2 where name = "visitor"
+
+ {
+ "database": 2,
+ "database.schema": 2,
+ "database.command": 2,
+ "database.cluster.*": 7,
+ "database.class.OUser": 3
+ }
+
  update orole put rules = "database.class.OUser", 3 where name = "visitor"
 
- //update orole put rules = "database.class.*", 2 where name = "visitor"
+
 
  CREATE CLASS Picture extends V
  CREATE PROPERTY Picture.id STRING
@@ -243,6 +300,7 @@
 
  //create visitor
  select from orole
+
  insert into OUser set name = 'visitor', status = 'ACTIVE', password = 'visitor', roles = [#4:3]
 
 

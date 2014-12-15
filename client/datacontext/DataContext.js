@@ -3,7 +3,7 @@
 
     var module = angular.module('AppModule');
 
-    module.factory('DataContext', function ($rootScope, $location, $q, DataContextBase, AppDB, OdbService, LoginService) {
+    module.factory('DataContext', function ($rootScope, $location, $q, DataContextBase, AppDB, OdbService) {
 
         //appInfo : {
         // isSynchronized:Boolean,
@@ -13,6 +13,8 @@
         // };
 
         var dataContext = {
+            isAuthenticated: false,
+            isOnline: true,
             deleteEmployee: deleteEmployee,
             deleteTag: deleteTag,
             getEmployees: getEmployees,
@@ -94,7 +96,9 @@
             var data = {data: exportData};
 
             //var command = "update AppData MERGE " + JSON.stringify(data) + " where @rid=" + dataContext.appInfo.dataId;
-            var command = "update AppData set data='" + exportData + "' return after @this where @rid=" + dataContext.appInfo.dataId;
+            //var command = "update AppData set data='" + exportData + "' return after @this where @rid=" + dataContext.appInfo.dataId;
+            var command = "update AppData set data=" + JSON.stringify(exportData);
+
             OdbService.query(command)
                 .then(function (res) {
                     console.log('remoteSaveAppData', res);
@@ -104,8 +108,8 @@
 
                 }, function (err) {
                     console.log(err);
-                    LoginService.isAuthenticated = false;
-                    LoginService.isOnline = false;
+                    dataContext.isAuthenticated = false;
+                    dataContext.isOnline = false;
                     deferred.reject();
                 });
 

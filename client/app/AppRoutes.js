@@ -106,12 +106,12 @@
 
     }
 
-    function run($rootScope, $urlRouter, LoginService, $state, DataContext){
+    function run($rootScope, $urlRouter, $state, DataContext){
         $rootScope.$on('$locationChangeSuccess', function(evt) {
 
             evt.preventDefault();
 
-            if (LoginService.isAuthenticated || !LoginService.isOnline){
+            if (DataContext.isAuthenticated || !DataContext.isOnline){
                 $urlRouter.sync();
             }else{
                 $state.go('api.login');

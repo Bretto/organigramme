@@ -10,12 +10,12 @@
 
             <button ng-class="{'btn-disabled': employees.dataContext.appInfo.isSynchronized}"
                     ng-click="employees.onSynchronize()"
-                    ng-show="employees.loginService.isAuthenticated">
+                    ng-show="employees.dataContext.isAuthenticated">
                 <i class="fa fa-cloud-upload"></i>
             </button>
 
             <button ng-click="employees._onGoto('api.login')"
-                    ng-hide="employees.loginService.isAuthenticated">
+                    ng-hide="employees.dataContext.isAuthenticated">
                 <i class="fa fa-user"></i>
             </button>
 

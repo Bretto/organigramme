@@ -150,14 +150,14 @@
             return deferred.promise;
         }
 
-        function localSaveImageData(id, data) {
+        function localSaveImageData(id, saved, data) {
             var deferred = $q.defer();
 
             AppDB.transaction(
                 function (tx) {
                     tx.executeSql(
                         "INSERT OR REPLACE INTO Picture (id, saved, data) VALUES (?, ?, ?)",
-                        [id, 0, data],
+                        [id, saved, data],
                         function (tx, result) {
                             console.log("Query Success");
                             deferred.resolve();

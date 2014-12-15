@@ -38,7 +38,7 @@
                     data: $scope.currentPictureSelected.data
                 };
 
-                vm.dataContext.localSaveImageData(picture.id, picture.data)
+                vm.dataContext.localSaveImageData(picture.id, 0, picture.data)
                     .then(function () {
                         vm.remoteSaveImageData(picture);
                         vm.currentEmployee.picture = picture.id;

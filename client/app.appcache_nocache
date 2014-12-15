@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# v.@@version
+# Last update: @@timestamp
+
+CACHE:
+
+
+FALLBACK:
+# Nothing
+NETWORK:
+# Request everything from server
+*
+
+
+
+

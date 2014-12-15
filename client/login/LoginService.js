@@ -63,7 +63,7 @@
                     console.log('getRemotePictures', res);
 
                     _.forEach(res.data.result, function (picture) {
-                        DataContext.localSaveImageData(picture.id, picture.data);
+                        DataContext.localSaveImageData(picture.id, 1, picture.data);
                     });
 
                 }, function (err) {

@@ -6,7 +6,7 @@
         .controller('AppCtrl', AppCtrl);
 
 
-    function AppCtrl($scope, $rootScope, $state, $log, ViewBaseMixin) {
+    function AppCtrl($scope, $rootScope, $state, $log, ViewBaseMixin, $timeout) {
 
         $log = $log.getInstance("AppCtrl");
         $log.info('Initialize');

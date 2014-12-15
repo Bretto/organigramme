@@ -11,6 +11,7 @@
         "gulp": "latest",
         "gulp-notify": "latest",
         "gulp-livereload": "latest",
+        "gulp-autoprefixer": "latest",
         "run-sequence": "^0.3.6"
     }
 }

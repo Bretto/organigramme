@@ -1186,7 +1186,10 @@
   left: 0;
   right: 80px;
   bottom: 0;
-  background: #000;
+  background: #19212d;
+}
+.tag-menu header {
+  background: #ff005d;
 }
 .search-input {
   font-size: 20px;
@@ -1214,6 +1217,17 @@
   height: 100%;
   top: 0;
   left: 0;
+/*.effect{*/
+/*-webkit-transition: .3s ease-in-out -webkit-transform;*/
+/*background: rgba(#fff, .5);*/
+/*width: 100%;*/
+/*height: 100%;*/
+/*-webkit-transform: translate3d(100%, 100%, 0) rotateZ(45deg);*/
+/*position: relative;*/
+/*&.active{*/
+/*-webkit-transform: translate3d(-100%, -100%, 0) rotateZ(45deg);*/
+/*}*/
+/*}*/
 }
 .center-img .profile-pic {
   position: absolute;
@@ -1267,6 +1281,9 @@
   left: 0;
   position: absolute;
   z-index: 1;
+}
+.app-wrap {
+  height: 100%;
 }
 .employee {
   -webkit-transition: 0.3s ease-in-out -webkit-transform;
@@ -1340,15 +1357,15 @@
 }
 .flip-container .flipper {
   position: relative;
-  -webkit-transition: 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) -webkit-transform;
+  -webkit-transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) -webkit-transform;
   -webkit-transform-style: preserve-3d;
 }
 .front {
   z-index: 2;
-  background: #f00;
+  background: #145fd7;
 }
 .back {
-  background: #f5f5f5;
+  background: #0f4bae;
   -webkit-transform: rotateY(180deg);
 }
 .front,
@@ -1360,15 +1377,12 @@
   right: 0;
   left: 0;
 }
-.loggin {
+.login {
   width: 100%;
   height: 100%;
 }
-.loggin > section {
-  position: relative;
-}
-.loggin > section input,
-.loggin > section button {
+.login section input,
+.login section button {
   font-size: 20px;
   margin: 9px 20px;
   padding: 4px;
@@ -1389,7 +1403,7 @@ body {
   background: #202a39;
   height: 100%;
   width: 100%;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: #ff005d;
 }
 .view {
   z-index: 2;
@@ -1515,7 +1529,7 @@ body {
   padding: 11px;
   padding-left: 12px;
 }
-form .errors {
+form .errors div {
   background: rgba(0,0,0,0.1);
   padding: 4px;
   margin: 0 20px;

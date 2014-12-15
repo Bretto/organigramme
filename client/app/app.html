@@ -42,9 +42,13 @@
                     ng-class="{active: app._isEmpActive(employee)}"
                     class="employee-tile" ax-bg-color="employee"
                     ng-repeat="employee in app.getEmployees(app.searchIds) | limitTo: 100">
+                    <a href="">
                     <div class="center-img">
+
                         <img class="profile-pic" axi-load-picture="{{employee.picture}}">
+                        <!--<div class="effect" ng-class="{active: app._isEmpActive(employee)}"></div>-->
                     </div>
+                    </a>
                     <!--<axi-loader></axi-loader>-->
                 </li>
             </ul>

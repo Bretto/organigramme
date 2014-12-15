@@ -8,15 +8,19 @@
 /*
 
     TODO Bugs
-    Use the User Password instead of @RID
+    Use the User Password instead of @RID as on a VPN
 
     TODO Mobile
     AppCache
     Error Alert Popup
-    Pre-loader
+    Pre-loader on things and image processing
     App icon
     Swipe lef/right through profiles subsets
     Delete images from db based from a 2 on the saved local db
+    when internet is available and username and password in incorrect prevent access... lol
+    keep the user login
+    check the effect of sleep...
+
 
 
     TODO Docker
@@ -60,7 +64,7 @@
 
     function Run($rootScope, OdbService) {
         $rootScope.isLoading = true;
-        OdbService.connect('Organigramme', 'http://localhost:2480');
+        OdbService.connect('Organigramme', 'http://10.0.0.79:2480');
         OdbService.auth('visitor', 'visitor');
     }
 

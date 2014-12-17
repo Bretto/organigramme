@@ -6,6 +6,9 @@ $color = #fff;
 .loader-wrap {
 
   pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 .loader {
@@ -23,6 +26,7 @@ $color = #fff;
 .loader,
 .loader:after {
 
+  left: -50%;
   border-radius: 50%;
   width: $size;
   height: $size;

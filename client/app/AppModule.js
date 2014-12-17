@@ -14,14 +14,13 @@
     AppCache
     Error Alert Popup
     Pre-loader on things and image processing
-    App icon
-    Swipe lef/right through profiles subsets
     Delete images from db based from a 2 on the saved local db
-    when internet is available and username and password in incorrect prevent access... lol
+    make the grid system work on every device...
+
+    TODO Nice to Have
     keep the user login
-    check the effect of sleep...
-
-
+    Swipe lef/right through profiles subsets
+    App icon
 
     TODO Docker
     find how to give a name to the instance of orientdb to stop and start it withou the id...

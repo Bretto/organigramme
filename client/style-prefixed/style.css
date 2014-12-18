@@ -1319,8 +1319,24 @@
   text-shadow: #000 1px 1px;
   font-size: 30px;
 }
+.tag {
+  background-color: #ff7c35;
+/*.item-input-inset{*/
+/*position: absolute;*/
+/*top: 0;*/
+/*}*/
+/*.content-offset {*/
+/*margin-top: 96px;*/
+/*}*/
+/*.subheader-offset {*/
+/*height: 97px;*/
+/*}*/
+}
 .loader-wrap {
   pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 .loader {
   font-size: 10px;
@@ -1334,6 +1350,7 @@
 }
 .loader,
 .loader:after {
+  left: -50%;
   border-radius: 50%;
   width: 50px;
   height: 50px;

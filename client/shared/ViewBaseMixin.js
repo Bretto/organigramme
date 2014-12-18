@@ -5,7 +5,7 @@
         .service('ViewBaseMixin', ViewBaseMixin);
 
 
-    function ViewBaseMixin($state, $rootScope, $timeout, OdbService, DataContext, LoginService) {
+    function ViewBaseMixin($state, $rootScope, $timeout, OdbService, DataContext, LoginService, Version) {
         console.log('ViewBaseMixin');
 
 
@@ -29,6 +29,7 @@
             vm.getEmployees = getEmployees;
 
             vm.isModified = isModified;
+            vm.version = Version;
 
             Object.defineProperty(vm, 'currentEmployee', {
                 get: function () {

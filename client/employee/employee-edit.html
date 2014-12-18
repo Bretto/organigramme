@@ -4,7 +4,7 @@
         <button ng-click="employeeEdit.onBack('api.main.employee')">
             <i class="fa fa-arrow-left"></i>
         </button>
-        <h1 class="title">Employee</h1>
+        <h1 class="title">{{employeeEdit.version}}</h1>
         <button ng-click="employeeEdit.onSave('api.main.employee')"
                 ng-class="{'btn-disabled': employeeEdit.isSaveDisabled(employeeEdit.currentEmployee)}">
             <i class="fa fa-floppy-o"></i>
@@ -41,7 +41,7 @@
 
     <section class="confirm-wrap" layout="vertical" flex ng-class="{'is-opened': deleteConfIsOpened}">
         <div class="confirm-popup">
-            <button ng-click="employeeEdit.onDelete('api.employee')">
+            <button ng-click="employeeEdit.onDelete('api.main.employee')">
                 Delete
             </button>
             <button ng-click="deleteConfIsOpened = !deleteConfIsOpened">

@@ -3,7 +3,7 @@
     <header layout="horizontal" layout-align="space-between end">
         <button ng-click="employeeView._onGoto('api.main.employee', {isBack:true})"><i class="fa fa-arrow-left"></i></button>
 
-        <h1 class="title">Test</h1>
+        <h1 class="title">{{employeeView.version}}</h1>
 
         <button ng-click="employeeView._onGoto('api.main.employeeEdit', {employeeId: employeeView.currentEmployee.id})"
                 class=""><i class="fa fa-cogs"></i></button>

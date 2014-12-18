@@ -159,7 +159,6 @@
                         "INSERT OR REPLACE INTO Picture (id, saved, data) VALUES (?, ?, ?)",
                         [id, saved, data],
                         function (tx, result) {
-                            console.log("Query Success");
                             deferred.resolve();
                         },
                         function (tx, error) {
@@ -172,7 +171,7 @@
                     console.log("Transaction Error: " + error.message);
                 },
                 function () {
-                    console.log("Transaction Success");
+                    //console.log("Transaction Success");
                 }
             );
 

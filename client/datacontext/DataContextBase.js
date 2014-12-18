@@ -89,7 +89,7 @@
         }
 
         function _doLocalSave(username) {
-//            console.log('exportEntities');
+            console.log('_doLocalSave', username);
 //            console.log(manager.getEntities());
 
             manager.acceptChanges();

@@ -46,6 +46,7 @@
         .module('AppModule', modules)
         .provider('AppConfig', AppConfigProvider)
         .directive('axBgColor', axBgColor)
+        .constant('Version', 'v.1.0')
         .run(Run);
 
 

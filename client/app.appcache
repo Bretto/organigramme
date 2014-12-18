@@ -1,25 +1,25 @@
 CACHE MANIFEST
-# v.@@version
-# Last update: @@timestamp
+# v 1.0.1
 
 
 CACHE:
 
-/bower_components/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0
+
+
+
+/style.css
 /bower_components/normalize-css/normalize.css
 /bower_components/font-awesome/css/font-awesome.min.css
-/style.css
-
 
 /bower_components/lodash/dist/lodash.min.js
 /bower_components/angular-messages/angular-messages.js
 /bower_components/angular-touch/angular-touch.min.js
 /bower_components/angular-animate/angular-animate.js
 /bower_components/angular-ui-router/release/angular-ui-router.js
-/bower_components/angular/angular.js
 /bower_components/breezejs/breeze.debug.js
-
-/orientdb/OrientdbModule.js
+/bower_components/angular-touch/angular-touch.min.js.map
+/bower_components/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0
+/bower_components/angular/angular.js
 
 /lib/jquery.min.js
 /lib/exif.js
@@ -28,6 +28,8 @@ CACHE:
 
 /logger/LoggerModule.js
 
+/orientdb/OrientdbModule.js
+
 /app/AppModule.js
 /app/AppCtrl.js
 /app/AppRoutes.js
@@ -35,21 +37,20 @@ CACHE:
 /app/AppConfig.js
 
 /login/LoginCtrl.js
-/login/LoginDirectives.js
 /login/LoginService.js
-/login/login.html
+/login/LoginDirectives.js
 
-/datacontext/DataContextBase.js
 /datacontext/DataContext.js
+/datacontext/DataContextBase.js
 /datacontext/JsonResultsAdapter.js
 /datacontext/EntityModel.js
 /datacontext/DataContextConfig.js
 
+/employee/EmployeeBaseMixin.js
 /employee/EmployeeEditCtrl.js
 /employee/EmployeeNewCtrl.js
-/employee/EmployeesCtrl.js
 /employee/EmployeeViewCtrl.js
-/employee/EmployeeBaseMixin.js
+/employee/EmployeesCtrl.js
 
 /tag/TagAddCtrl.js
 /tag/TagEditCtrl.js
@@ -61,7 +62,21 @@ CACHE:
 /shared/CameraBtn.js
 
 /loader/LoaderDirective.js
+
+/index.html
 /loader/loader.html
+/app/app.html
+/employee/employees.html
+/login/login.html
+
+/employee/employee-view.html
+/employee/employee-edit.html
+/employee/employee-new.html
+
+/tag/tags.html
+/tag/tag-new.html
+/tag/tag-edit.html
+/tag/tag-add.html
 
 
 FALLBACK:
@@ -69,6 +84,8 @@ FALLBACK:
 NETWORK:
 # Request everything from server
 *
+
+
 
 
 

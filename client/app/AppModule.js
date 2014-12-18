@@ -9,6 +9,7 @@
 
     TODO Bugs
     Use the User Password instead of @RID as on a VPN
+    Check export import DB
 
     TODO Mobile
     AppCache
@@ -94,6 +95,24 @@
 
         }
     }
+
+    // Check if a new cache is available on page load.
+    window.addEventListener('load', function (e) {
+
+        window.applicationCache.addEventListener('updateready', function (e) {
+            if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                // Browser downloaded a new app cache.
+                if (confirm("A new version is available.")) {
+                    window.location.reload();
+                } else {
+                    window.location.reload();
+                }
+            } else {
+                // Manifest didn't changed. Nothing new to server.
+            }
+        }, false);
+
+    }, false);
 
 
 
